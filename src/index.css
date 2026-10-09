@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Folio 2020 Minimalist Clean Palette
+       Canvas: Clean crisp light (#F9FAFB)
+       Accent: International Folio Orange (#F44B0B / hsl(16, 93%, 50%))
+       Text: High contrast charcoal/black (#0F172A)
+    */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 16 93% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 95%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 16 93% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 16 93% 50%;
+
+    --radius: 1rem;
+
+    /* Custom Folio tag tokens */
+    --tag-financing: 210 20% 92%;
+    --tag-lifestyle: 16 93% 94%;
+    --tag-community: 210 20% 92%;
+    --tag-wellness: 150 40% 92%;
+    --tag-travel: 35 60% 92%;
+    --tag-creativity: 16 93% 92%;
+    --tag-growth: 210 20% 92%;
+
+    /* Polish design tokens */
+    --cream: 210 20% 98%;
+    --cream-foreground: 222 47% 11%;
+    --surface-elevated: 0 0% 100%;
+    --shadow-soft: 220 20% 12%;
+    --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dark {
+    /* Folio 2020 Minimalist Dark Canvas */
+    --background: 222 47% 8%;
+    --foreground: 210 20% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 16 93% 54%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 25% 15%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 220 25% 15%;
+    --muted-foreground: 215 16% 65%;
+
+    --accent: 16 93% 54%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 18%;
+    --input: 220 25% 18%;
+    --ring: 16 93% 54%;
+
+    /* Dark mode tag colors */
+    --tag-financing: 220 25% 18%;
+    --tag-lifestyle: 16 70% 20%;
+    --tag-community: 220 25% 18%;
+    --tag-wellness: 150 30% 18%;
+    --tag-travel: 35 40% 18%;
+    --tag-creativity: 16 70% 20%;
+    --tag-growth: 220 25% 18%;
+
+    /* Dark mode polish tokens */
+    --cream: 222 47% 12%;
+    --cream-foreground: 210 20% 98%;
+    --surface-elevated: 222 47% 13%;
+    --shadow-soft: 222 60% 4%;
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  html,
+  body {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-background text-foreground antialiased selection:bg-[#F44B0B]/20 selection:text-[#F44B0B];
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply font-bold tracking-tight text-foreground;
+  }
+}
+
+@layer utilities {
+  .card-hover {
+    @apply transition-all duration-500 hover:scale-[1.02];
+    box-shadow: 0 4px 20px -4px hsl(var(--shadow-soft) / 0.1);
+  }
+
+  .card-hover:hover {
+    box-shadow: 0 20px 40px -10px hsl(var(--shadow-soft) / 0.15);
+  }
+
+  .pill-nav {
+    @apply rounded-full bg-[hsl(var(--surface-elevated))] backdrop-blur-lg border border-border/50;
+  }
+
+  .floating-button {
+    @apply w-12 h-12 rounded-full bg-[hsl(var(--cream)/0.9)] backdrop-blur-sm flex items-center justify-center text-[hsl(var(--cream-foreground))] hover:bg-[hsl(var(--cream))] hover:scale-110 transition-all duration-300;
+    box-shadow: 0 4px 12px -2px hsl(var(--shadow-soft) / 0.15);
+  }
+
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+
+  /* Stagger animations */
+  .stagger-1 {
+    animation-delay: 0.1s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .stagger-2 {
+    animation-delay: 0.2s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .stagger-3 {
+    animation-delay: 0.3s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .stagger-4 {
+    animation-delay: 0.4s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .stagger-5 {
+    animation-delay: 0.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .stagger-6 {
+    animation-delay: 0.6s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .tag-financing {
+    @apply bg-[hsl(var(--tag-financing))] text-primary;
+  }
+
+  .tag-lifestyle {
+    @apply bg-[hsl(var(--tag-lifestyle))] text-primary;
+  }
+
+  .tag-community {
+    @apply bg-[hsl(var(--tag-community))] text-primary;
+  }
+
+  .tag-wellness {
+    @apply bg-[hsl(var(--tag-wellness))] text-primary;
+  }
+
+  .tag-travel {
+    @apply bg-[hsl(var(--tag-travel))] text-primary;
+  }
+
+  .tag-creativity {
+    @apply bg-[hsl(var(--tag-creativity))] text-primary;
+  }
+
+  .tag-growth {
+    @apply bg-[hsl(var(--tag-growth))] text-primary;
+  }
+
+  /* 60 FPS Hardware-accelerated transformations */
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
