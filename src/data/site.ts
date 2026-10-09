@@ -54,7 +54,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     ],
   },
   "003": {
-    accent: "#E5313A",
+    accent: "#E10102",
     onAccent: "#FFFFFF",
     discipline: "print",
     year: "2024",

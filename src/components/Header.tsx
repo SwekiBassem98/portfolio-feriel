@@ -197,7 +197,7 @@ const Header = () => {
           <Link to="/" className="group flex items-center gap-2.5" aria-label={t("site.nav.home")} onClick={() => setOpen(false)}>
             <RegMark className="h-5 w-5 text-foreground transition-transform duration-500 group-hover:rotate-90" />
             <span className="text-[15px] font-semibold tracking-tight">Feriel Bouzid</span>
-            <span className="hidden font-serif text-[17px] italic text-muted-foreground xl:inline">— {t("site.hero.role").toLowerCase()}</span>
+            <span className="hidden text-sm text-muted-foreground xl:inline">— {t("site.hero.role").toLowerCase()}</span>
           </Link>
 
           <nav aria-label={t("site.nav.primary")} className="hidden md:block">

@@ -138,6 +138,14 @@ All colors MUST be HSL.
     @apply font-sans font-semibold tracking-tight text-foreground;
   }
 
+  /* No italics anywhere: emphasis is carried by weight and colour */
+  em,
+  i,
+  cite,
+  blockquote {
+    font-style: normal;
+  }
+
   /* One visible, consistent focus ring for keyboard users */
   :focus-visible {
     outline: 2px solid hsl(var(--spot));

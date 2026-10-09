@@ -521,8 +521,9 @@ html.vt-theme::view-transition-new(root) {
       animation-timeline: scroll(root);
       animation-range: 0 90vh;
     }
-    @keyframes sd-hero-a { to { transform: translate3d(-3%, -6vh, 0); } }
-    @keyframes sd-hero-b { to { transform: translate3d(4%, -9vh, 0); } }
+    /* both lines move straight up (no sideways drift) so they stay left-aligned */
+    @keyframes sd-hero-a { to { transform: translate3d(0, -6vh, 0); } }
+    @keyframes sd-hero-b { to { transform: translate3d(0, -8vh, 0); } }
 
     .sd-stack {
       animation: sd-stack linear both;

@@ -70,7 +70,7 @@ const Contact = () => {
           <h2 id="contact-title" className="mt-8 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-background">
             <RegisterText auto delay={700}>
               <MaskText base={200}>
-                {t("site.contact.titleA")} <em className="font-serif font-normal italic tracking-normal text-spot">{t("site.contact.titleEm")}</em>{" "}
+                {t("site.contact.titleA")} <em className="not-italic text-spot">{t("site.contact.titleEm")}</em>{" "}
                 {t("site.contact.titleB")}
               </MaskText>
             </RegisterText>

@@ -573,7 +573,7 @@
       "from": "De"
     },
     "footer": {
-      "colophon": "Composé en Inter Tight, Instrument Serif et JetBrains Mono. Réalisé avec React.",
+      "colophon": "Composé en Inter Tight et JetBrains Mono. Réalisé avec React.",
       "proof": "Mode épreuve",
       "proofHint": "Affiche la grille de ligne de base et les marges (raccourci : G)",
       "back": "Haut de page"

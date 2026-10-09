@@ -16,7 +16,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["'Inter Tight Variable'", "'Inter Tight'", "ui-sans-serif", "system-ui", "-apple-system", "'Segoe UI'", "Roboto", "sans-serif"],
-        serif: ["'Instrument Serif'", "ui-serif", "Georgia", "'Times New Roman'", "serif"],
+        serif: ["'Inter Tight Variable'", "'Inter Tight'", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["'JetBrains Mono'", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       colors: {
