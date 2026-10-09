@@ -38,7 +38,7 @@ export const articles: Article[] = [
     category: "Industriel",
     date: "16 Oct 2024",
     readTime: "5 min",
-    image: "/images/projects/moderna/1.png",
+    image: "/images/projects/moderna/Moderna-thumbnail.jpg",
     gallery: [
       "/images/projects/moderna/1.png","/images/projects/moderna/2.png","/images/projects/moderna/3.png","/images/projects/moderna/4.png","/images/projects/moderna/5.png","/images/projects/moderna/6.png","/images/projects/moderna/7.png","/images/projects/moderna/8.png","/images/projects/moderna/9.png","/images/projects/moderna/10.png","/images/projects/moderna/11.png","/images/projects/moderna/12.png","/images/projects/moderna/13.png","/images/projects/moderna/14.png","/images/projects/moderna/15.png","/images/projects/moderna/16.png","/images/projects/moderna/17.png","/images/projects/moderna/18.png","/images/projects/moderna/19.png","/images/projects/moderna/20.png","/images/projects/moderna/21.png"
     ],
@@ -76,7 +76,7 @@ export const articles: Article[] = [
     category: "Alimentation",
     date: "23 Oct 2024",
     readTime: "6 min",
-    image: "/images/projects/ilmercato/1.jpg",
+    image: "/images/projects/ilmercato/IlMercato-thumbnail.jpg",
     gallery: [
       "/images/projects/ilmercato/1.jpg","/images/projects/ilmercato/2.jpg","/images/projects/ilmercato/3.png","/images/projects/ilmercato/4.png","/images/projects/ilmercato/5.jpg","/images/projects/ilmercato/6.png","/images/projects/ilmercato/7.png","/images/projects/ilmercato/8.png","/images/projects/ilmercato/9.png","/images/projects/ilmercato/10.png","/images/projects/ilmercato/11.jpg","/images/projects/ilmercato/12.jpg","/images/projects/ilmercato/13.jpg","/images/projects/ilmercato/14.jpg","/images/projects/ilmercato/15.jpg"
     ],
@@ -114,7 +114,7 @@ export const articles: Article[] = [
     category: "Corporate",
     date: "4 Déc 2024",
     readTime: "5 min",
-    image: "/images/projects/cbss/1.png",
+    image: "/images/projects/cbss/CBSS-thumbnail.jpg",
     gallery: [
       "/images/projects/cbss/1.png","/images/projects/cbss/2.png","/images/projects/cbss/3.png","/images/projects/cbss/4.png","/images/projects/cbss/5.png","/images/projects/cbss/6.png","/images/projects/cbss/7.png"
     ],
@@ -153,7 +153,7 @@ export const articles: Article[] = [
     category: "Beauté",
     date: "21 Avr 2025",
     readTime: "6 min",
-    image: "/images/projects/curvita/aloha-gold.jpg",
+    image: "/images/projects/curvita/Curvita-thumbnail.jpg",
     gallery: [
       "/images/projects/curvita/11.jpg","/images/projects/curvita/12.jpg","/images/projects/curvita/13.jpg","/images/projects/curvita/14.jpg","/images/projects/curvita/15.jpg","/images/projects/curvita/16.jpg","/images/projects/curvita/19.jpg","/images/projects/curvita/20.jpg","/images/projects/curvita/24.jpg","/images/projects/curvita/25.jpg","/images/projects/curvita/26.jpg","/images/projects/curvita/27.jpg","/images/projects/curvita/29.jpg","/images/projects/curvita/30.jpg","/images/projects/curvita/31.jpg","/images/projects/curvita/34.jpg","/images/projects/curvita/35.jpg","/images/projects/curvita/36.jpg","/images/projects/curvita/37.jpg","/images/projects/curvita/38.jpg","/images/projects/curvita/42.jpg","/images/projects/curvita/43.jpg","/images/projects/curvita/45.jpg","/images/projects/curvita/46.jpg","/images/projects/curvita/47.jpg","/images/projects/curvita/49.jpg","/images/projects/curvita/50.jpg","/images/projects/curvita/51.jpg","/images/projects/curvita/52.jpg","/images/projects/curvita/54.jpg","/images/projects/curvita/55.jpg","/images/projects/curvita/56.jpg","/images/projects/curvita/57.jpg","/images/projects/curvita/58.jpg","/images/projects/curvita/59.jpg","/images/projects/curvita/62.jpg","/images/projects/curvita/Curvita-Octobre-rose/oct-1.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-2.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-3.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-4.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-5.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-6.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-7.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-8.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-9.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-10.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-11.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-12.jpeg","/images/projects/curvita/Curvita-Octobre-rose/oct-13.jpeg"
     ],
@@ -205,7 +205,7 @@ export const articles: Article[] = [
     category: "Retail",
     date: "21 Avr 2025",
     readTime: "5 min",
-    image: "/images/projects/uniconfort/1.jpg",
+    image: "/images/projects/uniconfort/Uniconfort-thumbnail.jpg",
     gallery: [
       "/images/projects/uniconfort/1.jpg","/images/projects/uniconfort/2.png","/images/projects/uniconfort/3.jpg","/images/projects/uniconfort/4.jpg","/images/projects/uniconfort/5.jpg","/images/projects/uniconfort/6.jpg","/images/projects/uniconfort/7.png","/images/projects/uniconfort/8.jpg","/images/projects/uniconfort/9.jpg","/images/projects/uniconfort/10.jpg"
     ],
@@ -243,7 +243,7 @@ export const articles: Article[] = [
     category: "Corporate",
     date: "10 Juin 2025",
     readTime: "5 min",
-    image: "/images/projects/winkler/0.png",
+    image: "/images/projects/winkler/Winkler-thumbnail.jpg",
     gallery: [
       "/images/projects/winkler/2.png",
       "/images/projects/winkler/3.png",
