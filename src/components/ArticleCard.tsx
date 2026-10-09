@@ -28,11 +28,15 @@ const ArticleCard = ({
       }`}
     >
       {/* Image Preview Container */}
-      <div className="relative aspect-[16/10] sm:aspect-[16/10] overflow-hidden bg-muted">
+      {/* 16:9 matches the project thumbnails, so logos and taglines are never cropped */}
+      <div className="relative aspect-video overflow-hidden bg-muted">
         <img
           src={image}
           alt={title}
+          width={1672}
+          height={941}
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
         {/* Subtle hover overlay */}

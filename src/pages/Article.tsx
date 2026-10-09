@@ -115,16 +115,21 @@ const Article = () => {
         </div>
 
         {/* Cover Image */}
-        <div className="relative w-full h-[320px] md:h-[420px] lg:h-[480px] mb-6 sm:mb-8">
-          <img
-            src={article.image}
-            alt={article.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        {/* Shown whole at its native 16:9 ratio: a full-bleed crop with a fade would cut off the logo */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10">
+          <div className="relative aspect-video overflow-hidden rounded-xl border border-border/70 bg-muted shadow-sm">
+            <img
+              src={article.image}
+              alt={article.title}
+              width={1672}
+              height={941}
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
 
-        <article className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 md:-mt-32 relative z-10">
+        <article className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Article Header */}
           <div className="mb-8 animate-slide-up">
             <div className="flex flex-wrap items-center gap-2.5 mb-3">

@@ -39,7 +39,7 @@ export const articles: Article[] = [
     category: "Industrial",
     date: "Oct 16, 2024",
     readTime: "5 min",
-    image: "/images/projects/moderna/Moderna-thumbnail.png",
+    image: "/images/projects/moderna/Moderna-thumbnail.jpg",
     gallery: [
       "/images/projects/moderna/1.png",
       "/images/projects/moderna/2.png",
@@ -97,7 +97,7 @@ export const articles: Article[] = [
     category: "Food",
     date: "Oct 23, 2024",
     readTime: "6 min",
-    image: "/images/projects/ilmercato/1.jpg",
+    image: "/images/projects/ilmercato/IlMercato-thumbnail.jpg",
     gallery: [
       "/images/projects/ilmercato/1.jpg",
       "/images/projects/ilmercato/2.jpg",
@@ -149,7 +149,7 @@ export const articles: Article[] = [
     category: "Corporate",
     date: "Dec 4, 2024",
     readTime: "5 min",
-    image: "/images/projects/cbss/1.png",
+    image: "/images/projects/cbss/CBSS-thumbnail.jpg",
     gallery: [
       "/images/projects/cbss/1.png",
       "/images/projects/cbss/2.png",
@@ -194,7 +194,7 @@ export const articles: Article[] = [
     category: "Beauty",
     date: "Apr 21, 2025",
     readTime: "6 min",
-    image: "/images/projects/curvita/aloha-gold.jpg",
+    image: "/images/projects/curvita/Curvita-thumbnail.jpg",
     gallery: [
       "/images/projects/curvita/11.jpg",
       "/images/projects/curvita/12.jpg",
@@ -336,12 +336,12 @@ export const articles: Article[] = [
   },
   {
     id: "005",
-    title: "Unionfort",
+    title: "Uniconfort",
     subtitle: "Social Media & Promotional Identity",
     category: "Retail",
     date: "Apr 21, 2025",
     readTime: "5 min",
-    image: "/images/projects/uniconfort/1.jpg",
+    image: "/images/projects/uniconfort/Uniconfort-thumbnail.jpg",
     gallery: [
       "/images/projects/uniconfort/1.jpg",
       "/images/projects/uniconfort/2.png",
@@ -388,7 +388,7 @@ export const articles: Article[] = [
     category: "Corporate",
     date: "Jun 10, 2025",
     readTime: "5 min",
-    image: "/images/projects/winkler/0.png",
+    image: "/images/projects/winkler/Winkler-thumbnail.jpg",
     gallery: [
       "/images/projects/winkler/2.png",
       "/images/projects/winkler/3.png",
