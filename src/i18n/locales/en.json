@@ -573,7 +573,7 @@
       "from": "From"
     },
     "footer": {
-      "colophon": "Set in Inter Tight, Instrument Serif and JetBrains Mono. Built with React.",
+      "colophon": "Set in Inter Tight and JetBrains Mono. Built with React.",
       "proof": "Proof mode",
       "proofHint": "Shows the baseline grid and margins (shortcut: G)",
       "back": "Back to top"

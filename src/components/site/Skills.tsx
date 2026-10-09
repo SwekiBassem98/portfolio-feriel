@@ -55,7 +55,7 @@ const Skills = () => {
           </ul>
 
           <h3 className="slug mb-3 mt-10">{t("site.skills.production")}</h3>
-          <p className="max-w-prose font-serif text-2xl italic leading-snug">{t("index.skillsProficiency")}</p>
+          <p className="max-w-prose text-xl font-medium leading-snug tracking-tight">{t("index.skillsProficiency")}</p>
         </Reveal>
       </div>
     </section>

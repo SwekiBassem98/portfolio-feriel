@@ -242,7 +242,7 @@ const Hero = ({ projects }: { projects: Article[] }) => {
                 <MaskText base={60}>Feriel</MaskText>
               </RegisterText>
             </span>
-            <span className="sd-hero-b block pl-[0.6em] text-[clamp(4.25rem,15vw,10.5rem)]">
+            <span className="sd-hero-b block text-[clamp(4.25rem,15vw,10.5rem)]">
               <RegisterText play={mode === "full"} delay={360}>
                 <MaskText base={60} offset={2}>
                   Bouzid
@@ -253,7 +253,7 @@ const Hero = ({ projects }: { projects: Article[] }) => {
               </span>
             </span>
             <span
-              className="intro-item mt-4 block font-serif text-[clamp(1.6rem,3.6vw,2.6rem)] font-normal italic leading-tight tracking-normal text-muted-foreground"
+              className="intro-item mt-5 block text-[clamp(1.35rem,2.8vw,2rem)] font-medium leading-tight tracking-[-0.02em] text-muted-foreground"
               style={at(650)}
             >
               {t("site.hero.role")} — <span className="text-foreground">{t("site.hero.short")}</span>
@@ -261,7 +261,7 @@ const Hero = ({ projects }: { projects: Article[] }) => {
           </h1>
 
           <p className="intro-item mt-8 max-w-[34rem] text-lg leading-relaxed text-foreground/80 sm:text-xl" style={at(760)}>
-            {t("site.hero.statementA")} <em className="font-serif text-[1.15em] italic text-foreground">{t("site.hero.statementEm")}</em>{" "}
+            {t("site.hero.statementA")} <em className="font-semibold not-italic text-foreground">{t("site.hero.statementEm")}</em>{" "}
             {t("site.hero.statementB")}
           </p>
 
@@ -297,7 +297,7 @@ const Hero = ({ projects }: { projects: Article[] }) => {
 
         <div className="lg:col-span-5 lg:pt-6">
           <ProofStack projects={projects} />
-          <p className="intro-item mt-6 font-serif text-xl italic text-muted-foreground" style={at(1150)}>
+          <p className="intro-item mt-6 text-lg text-muted-foreground" style={at(1150)}>
             “{t("site.hero.motto")}”
           </p>
         </div>

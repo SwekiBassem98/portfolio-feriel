@@ -107,7 +107,7 @@ const Contents = ({ projects }: { projects: Article[] }) => {
                   />
                   {p.title}
                 </span>
-                <span className="relative hidden truncate font-serif text-lg italic text-muted-foreground transition-colors group-hover:text-foreground sm:block">
+                <span className="relative hidden truncate text-base text-muted-foreground transition-colors group-hover:text-foreground sm:block">
                   {p.subtitle}
                 </span>
                 <span className="relative hidden font-mono text-xs text-muted-foreground sm:block">{meta.year}</span>
@@ -237,7 +237,7 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
           <MaskText base={260}>{project.title}</MaskText>
         </h3>
         <div className="stagger" style={vars({ "--stagger-base": "420ms" })}>
-          <p className="mt-2 font-serif text-2xl italic text-muted-foreground" style={vars({ "--i": 0 })}>
+          <p className="mt-2 text-xl font-medium tracking-tight text-muted-foreground" style={vars({ "--i": 0 })}>
             {project.subtitle}
           </p>
           <p className="mt-6 max-w-prose leading-relaxed text-foreground/80" style={vars({ "--i": 1 })}>

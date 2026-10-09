@@ -215,7 +215,7 @@ const Article = () => {
               <h1 key={article.id} className="mw-intro mt-6 text-[clamp(3.5rem,11vw,8.5rem)] font-semibold leading-[0.88] tracking-[-0.05em]">
                 <MaskText base={120}>{article.title}</MaskText>
               </h1>
-              <p className="intro-item mt-4 font-serif text-[clamp(1.6rem,3.4vw,2.5rem)] italic leading-tight text-muted-foreground" style={{ ["--intro-base" as string]: "320ms" }}>
+              <p className="intro-item mt-4 text-[clamp(1.35rem,2.6vw,2rem)] font-medium leading-tight tracking-[-0.02em] text-muted-foreground" style={{ ["--intro-base" as string]: "320ms" }}>
                 {article.subtitle}
               </p>
             </div>
@@ -233,9 +233,8 @@ const Article = () => {
             </dl>
           </header>
 
-          {/* Cover */}
-          <Reveal variant="stage" className="m-[22px] sm:m-6">
-            <div className="crop">
+          {/* Cover (full content width, no crop marks) */}
+          <div>
             <img
               data-vt-target=""
               style={{ viewTransitionName: "project-cover" }}
@@ -246,8 +245,7 @@ const Article = () => {
               decoding="async"
               className="block aspect-video w-full bg-muted object-cover outline outline-1 -outline-offset-1 outline-foreground/10"
             />
-            </div>
-          </Reveal>
+          </div>
 
           {/* Overview */}
           <section aria-labelledby="overview" className="grid gap-10 py-16 sm:py-24 lg:grid-cols-12">
@@ -285,7 +283,7 @@ const Article = () => {
               ))}
             </ol>
             <Reveal as="blockquote" className="mt-16 max-w-4xl border-l-2 pl-6 sm:pl-8" style={{ borderColor: meta.accent }}>
-              <p className="font-serif text-[clamp(1.6rem,3.2vw,2.5rem)] italic leading-snug">{article.content.conclusion}</p>
+              <p className="text-[clamp(1.35rem,2.6vw,2rem)] font-medium leading-snug tracking-[-0.02em]">{article.content.conclusion}</p>
             </Reveal>
           </section>
 
@@ -432,7 +430,7 @@ const Article = () => {
                 />
                 {nextP.title}
               </span>
-              <span className="font-serif text-xl italic text-muted-foreground">{nextP.subtitle}</span>
+              <span className="text-lg text-muted-foreground">{nextP.subtitle}</span>
             </TransitionLink>
           </div>
         </nav>

@@ -27,7 +27,7 @@ const About = () => {
         id="about-title"
         title={
           <>
-            {t("site.about.title")} <em className="font-serif font-normal italic tracking-normal text-spot-ink">{t("site.about.titleEm")}</em>
+            {t("site.about.title")} <em className="not-italic text-spot-ink">{t("site.about.titleEm")}</em>
           </>
         }
       />
