@@ -30,7 +30,7 @@ const Experience = () => {
             </div>
             <div className="lg:col-span-4">
               <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{r.title}</h3>
-              <p className="mt-1 font-serif text-xl italic text-muted-foreground">{r.company}</p>
+              <p className="mt-1 text-lg text-muted-foreground">{r.company}</p>
             </div>
             <ul className="space-y-4 lg:col-span-5">
               {r.bullets.map(([bt, bd]) => (

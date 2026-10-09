@@ -138,6 +138,14 @@ All colors MUST be HSL.
     @apply font-sans font-semibold tracking-tight text-foreground;
   }
 
+  /* No italics anywhere: emphasis is carried by weight and colour */
+  em,
+  i,
+  cite,
+  blockquote {
+    font-style: normal;
+  }
+
   /* One visible, consistent focus ring for keyboard users */
   :focus-visible {
     outline: 2px solid hsl(var(--spot));
@@ -199,20 +207,6 @@ All colors MUST be HSL.
   /* Hairline rule in ink */
   .rule {
     border-color: hsl(var(--foreground) / 0.9);
-  }
-
-  /* Reveal on scroll (driven by <Reveal/>) */
-  .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition:
-      opacity var(--dur) var(--ease-out),
-      transform var(--dur) var(--ease-out);
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
   }
 
   /* Text link with a growing underline */

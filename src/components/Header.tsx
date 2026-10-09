@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
+import { prefersReducedMotion } from "@/lib/motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Moon, Sun, ArrowDownToLine } from "lucide-react";
@@ -52,19 +54,60 @@ const Header = () => {
     typeof document !== "undefined" ? document.documentElement.classList.contains("dark") : false,
   );
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLUListElement>(null);
+  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
 
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
 
+  // Header steps aside while reading down, returns as soon as you scroll up
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    let last = window.scrollY;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        setScrolled(y > 8);
+        if (Math.abs(y - last) > 6) {
+          setHidden(y > 420 && y > last);
+          last = y;
+        }
+        raf = 0;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
+
+  // One indicator that slides between sections instead of blinking
+  useLayoutEffect(() => {
+    const ul = navRef.current;
+    if (!ul || !active) {
+      setIndicator(null);
+      return;
+    }
+    const measure = () => {
+      const a = ul.querySelector<HTMLElement>(`[data-section="${active}"]`);
+      if (!a) return;
+      setIndicator({ x: a.offsetLeft + 12, w: a.offsetWidth - 24 });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [active, language]);
+
+  useEffect(() => {
+    if (menuRef.current) menuRef.current.inert = !open;
+  }, [open]);
 
   // Mobile menu: lock scroll, close on Escape, keep focus inside
   useEffect(() => {
@@ -98,15 +141,28 @@ const Header = () => {
     };
   }, [open]);
 
-  const toggleTheme = () => {
+  // Theme switch: the new theme is revealed as a circle growing from the button
+  const toggleTheme = (e: React.MouseEvent) => {
     const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle("dark", next);
+    const apply = () => {
+      flushSync(() => setIsDark(next));
+      document.documentElement.classList.toggle("dark", next);
+    };
     try {
       localStorage.setItem("theme", next ? "dark" : "light");
     } catch {
       /* storage unavailable */
     }
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } };
+    if (!doc.startViewTransition || prefersReducedMotion()) {
+      apply();
+      return;
+    }
+    const root = document.documentElement;
+    root.style.setProperty("--vt-x", `${e.clientX}px`);
+    root.style.setProperty("--vt-y", `${e.clientY}px`);
+    root.classList.add("vt-theme");
+    doc.startViewTransition(apply).finished.finally(() => root.classList.remove("vt-theme"));
   };
 
   const goTo = (id: Section) => (e: React.MouseEvent) => {
@@ -114,7 +170,7 @@ const Header = () => {
     setOpen(false);
     if (isHome) {
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `#${id}`);
+      history.replaceState(history.state, "", `#${id}`);
     } else {
       navigate(`/#${id}`);
     }
@@ -132,7 +188,8 @@ const Header = () => {
         {t("site.nav.skip")}
       </a>
       <header
-        className={`sticky top-0 z-50 transition-[background-color,border-color] duration-300 ${
+        data-hidden={hidden && !open}
+        className={`site-header sticky top-0 z-50 ${
           scrolled || open ? "border-b border-foreground/10 bg-background/90 backdrop-blur-md" : "border-b border-transparent bg-background"
         }`}
       >
@@ -140,17 +197,24 @@ const Header = () => {
           <Link to="/" className="group flex items-center gap-2.5" aria-label={t("site.nav.home")} onClick={() => setOpen(false)}>
             <RegMark className="h-5 w-5 text-foreground transition-transform duration-500 group-hover:rotate-90" />
             <span className="text-[15px] font-semibold tracking-tight">Feriel Bouzid</span>
-            <span className="hidden font-serif text-[17px] italic text-muted-foreground xl:inline">— {t("site.hero.role").toLowerCase()}</span>
+            <span className="hidden text-sm text-muted-foreground xl:inline">— {t("site.hero.role").toLowerCase()}</span>
           </Link>
 
           <nav aria-label={t("site.nav.primary")} className="hidden md:block">
-            <ul className="flex items-center gap-1">
+            <ul ref={navRef} className="relative flex items-center gap-1">
+              <li aria-hidden="true" className="contents">
+                <span
+                  className="nav-indicator text-foreground"
+                  style={{ transform: `translateX(${indicator?.x ?? 0}px) scaleX(${indicator?.w ?? 0})`, opacity: indicator ? 1 : 0 }}
+                />
+              </li>
               {SECTIONS.map((id, i) => {
                 const isActive = active === id;
                 return (
                   <li key={id}>
                     <a
                       href={`/#${id}`}
+                      data-section={id}
                       onClick={goTo(id)}
                       aria-current={isActive ? "true" : undefined}
                       className={`group relative flex items-baseline gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors ${
@@ -164,7 +228,7 @@ const Header = () => {
                       <span
                         aria-hidden="true"
                         className={`absolute inset-x-3 -bottom-0.5 h-px origin-left bg-foreground transition-transform duration-500 ease-proof ${
-                          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                          isActive ? "scale-x-0" : "scale-x-0 group-hover:scale-x-100 opacity-40"
                         }`}
                       />
                     </a>
@@ -193,7 +257,9 @@ const Header = () => {
               {language === "en" ? "FR" : "EN"}
             </button>
             <button type="button" onClick={toggleTheme} className={iconBtn} aria-label={t("header.toggleTheme")} aria-pressed={isDark}>
-              {isDark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
+              <span key={isDark ? "sun" : "moon"} className="inline-flex animate-[spin-in_500ms_var(--ease-out)_both] motion-reduce:animate-none">
+                {isDark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
+              </span>
             </button>
             <button
               ref={toggleRef}
@@ -220,13 +286,16 @@ const Header = () => {
         role="dialog"
         aria-modal="true"
         aria-label={t("site.nav.primary")}
-        hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-background px-4 pb-10 pt-6 sm:px-6 md:hidden"
+        data-open={open}
+        aria-hidden={!open}
+        className="menu-sheet fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-background px-4 pb-10 pt-6 sm:px-6 md:hidden"
       >
-        <p className="slug mb-4">{t("site.work.contents")}</p>
+        <p className="slug menu-item mb-4" style={{ ["--i" as string]: 0 }}>
+          {t("site.work.contents")}
+        </p>
         <ul className="border-t border-foreground/15">
           {SECTIONS.map((id, i) => (
-            <li key={id} className="border-b border-foreground/15">
+            <li key={id} className="menu-item border-b border-foreground/15" style={{ ["--i" as string]: i + 1 }}>
               <a href={`/#${id}`} onClick={goTo(id)} className="flex items-baseline gap-4 py-4">
                 <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
                 <span className="text-4xl font-semibold tracking-tight">{t(`site.nav.${id}`)}</span>
@@ -234,7 +303,7 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <div className="mt-8 flex flex-col gap-3">
+        <div className="menu-item mt-8 flex flex-col gap-3" style={{ ["--i" as string]: SECTIONS.length + 1 }}>
           <a
             href={PROFILE.cvUrl}
             download={PROFILE.cvFileName}

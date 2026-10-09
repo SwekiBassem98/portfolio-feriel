@@ -5,6 +5,9 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, ArrowDownToLine, ChevronLeft, Chev
 import { toast } from "sonner";
 import Header, { RegMark } from "@/components/Header";
 import Reveal from "@/components/site/Reveal";
+import MaskText from "@/components/site/MaskText";
+import TransitionLink from "@/components/site/TransitionLink";
+import CursorLabel from "@/components/site/CursorLabel";
 import { getArticleById, getArticles } from "@/data/articles";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { PROFILE, getProjectMeta, sizeOf, thumb } from "@/data/site";
@@ -15,19 +18,20 @@ import { PROFILE, getProjectMeta, sizeOf, thumb } from "@/data/site";
 interface LightboxProps {
   images: string[];
   index: number;
+  dir: "next" | "prev" | null;
   title: string;
   onClose: () => void;
-  onIndex: (i: number) => void;
+  onIndex: (i: number, dir: "next" | "prev") => void;
 }
 
-const Lightbox = ({ images, index, title, onClose, onIndex }: LightboxProps) => {
+const Lightbox = ({ images, index, dir, title, onClose, onIndex }: LightboxProps) => {
   const { t } = useTranslation();
   const closeRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const touchX = useRef<number | null>(null);
   const total = images.length;
-  const next = useCallback(() => onIndex((index + 1) % total), [index, total, onIndex]);
-  const prev = useCallback(() => onIndex((index - 1 + total) % total), [index, total, onIndex]);
+  const next = useCallback(() => onIndex((index + 1) % total, "next"), [index, total, onIndex]);
+  const prev = useCallback(() => onIndex((index - 1 + total) % total, "prev"), [index, total, onIndex]);
 
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
@@ -81,7 +85,7 @@ const Lightbox = ({ images, index, title, onClose, onIndex }: LightboxProps) => 
       role="dialog"
       aria-modal="true"
       aria-label={`${title} — ${t("site.project.counter", { index: index + 1, total })}`}
-      className="fixed inset-0 z-[150] flex flex-col bg-[#0d0c0b]/[.97] text-white"
+      className="lb-enter fixed inset-0 z-[150] flex flex-col bg-[#0d0c0b]/[.97] text-white"
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
         if (touchX.current === null) return;
@@ -106,7 +110,8 @@ const Lightbox = ({ images, index, title, onClose, onIndex }: LightboxProps) => 
           width={w}
           height={h}
           onClick={(e) => e.stopPropagation()}
-          className="max-h-full max-w-full animate-fade-in object-contain"
+          data-dir={dir ?? undefined}
+          className="lb-img max-h-full max-w-full object-contain"
         />
       </div>
       <div className="flex items-center justify-center gap-3 pb-5 sm:absolute sm:inset-y-0 sm:left-0 sm:right-0 sm:justify-between sm:px-5 sm:pb-0 sm:pointer-events-none">
@@ -130,6 +135,7 @@ const Article = () => {
   const { t } = useTranslation();
   const [section, setSection] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [lbDir, setLbDir] = useState<"next" | "prev" | null>(null);
 
   const article = id ? getArticleById(id, language) : undefined;
   const all = useMemo(() => getArticles(language), [language]);
@@ -183,17 +189,18 @@ const Article = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="grain" aria-hidden="true" />
+      <CursorLabel />
       <Header />
 
-      <main id="main">
+      <main id="main" key={article.id}>
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-10">
           {/* Slug line */}
           <div className="flex items-center justify-between border-b border-foreground/15 py-4">
-            <Link to="/#work" className="group inline-flex items-center gap-2 text-sm font-medium">
+            <TransitionLink to="/#work" className="group inline-flex items-center gap-2 text-sm font-medium">
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
               {t("site.project.back")}
-            </Link>
-            <span className="slug">
+            </TransitionLink>
+            <span className="slug intro-item" style={{ ["--intro-base" as string]: "300ms" }}>
               {t("site.project.folio")} {article.id} / {String(all.length).padStart(3, "0")}
             </span>
           </div>
@@ -201,16 +208,24 @@ const Article = () => {
           {/* Title block */}
           <header className="grid gap-10 pb-12 pt-12 sm:pt-16 lg:grid-cols-12">
             <div className="lg:col-span-8">
-              <p className="flex items-center gap-3">
+              <p className="intro-item flex items-center gap-3" style={{ ["--intro-base" as string]: "0ms" }}>
                 <span className="h-3 w-3 rounded-full" style={{ background: meta.accent }} aria-hidden="true" />
                 <span className="slug">{discipline}</span>
               </p>
-              <h1 className="mt-6 text-[clamp(3.5rem,11vw,8.5rem)] font-semibold leading-[0.88] tracking-[-0.05em]">{article.title}</h1>
-              <p className="mt-4 font-serif text-[clamp(1.6rem,3.4vw,2.5rem)] italic leading-tight text-muted-foreground">{article.subtitle}</p>
+              <h1 key={article.id} className="mw-intro mt-6 text-[clamp(3.5rem,11vw,8.5rem)] font-semibold leading-[0.88] tracking-[-0.05em]">
+                <MaskText base={120}>{article.title}</MaskText>
+              </h1>
+              <p className="intro-item mt-4 text-[clamp(1.35rem,2.6vw,2rem)] font-medium leading-tight tracking-[-0.02em] text-muted-foreground" style={{ ["--intro-base" as string]: "320ms" }}>
+                {article.subtitle}
+              </p>
             </div>
             <dl className="self-end border-t border-foreground lg:col-span-4">
-              {facts.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-[7rem_1fr] gap-3 border-b border-foreground/15 py-3 text-sm">
+              {facts.map(([k, v], i) => (
+                <div
+                  key={k}
+                  className="intro-item grid grid-cols-[7rem_1fr] gap-3 border-b border-foreground/15 py-3 text-sm"
+                  style={{ ["--intro-base" as string]: "380ms", ["--i" as string]: i }}
+                >
                   <dt className="slug pt-0.5">{k}</dt>
                   <dd className="font-medium">{v}</dd>
                 </div>
@@ -218,9 +233,11 @@ const Article = () => {
             </dl>
           </header>
 
-          {/* Cover */}
-          <Reveal className="crop m-[22px] sm:m-6">
+          {/* Cover (full content width, no crop marks) */}
+          <div>
             <img
+              data-vt-target=""
+              style={{ viewTransitionName: "project-cover" }}
               src={article.image}
               alt={`${article.title} — ${article.subtitle}`}
               width={1672}
@@ -228,7 +245,7 @@ const Article = () => {
               decoding="async"
               className="block aspect-video w-full bg-muted object-cover outline outline-1 -outline-offset-1 outline-foreground/10"
             />
-          </Reveal>
+          </div>
 
           {/* Overview */}
           <section aria-labelledby="overview" className="grid gap-10 py-16 sm:py-24 lg:grid-cols-12">
@@ -266,7 +283,7 @@ const Article = () => {
               ))}
             </ol>
             <Reveal as="blockquote" className="mt-16 max-w-4xl border-l-2 pl-6 sm:pl-8" style={{ borderColor: meta.accent }}>
-              <p className="font-serif text-[clamp(1.6rem,3.2vw,2.5rem)] italic leading-snug">{article.content.conclusion}</p>
+              <p className="text-[clamp(1.35rem,2.6vw,2rem)] font-medium leading-snug tracking-[-0.02em]">{article.content.conclusion}</p>
             </Reveal>
           </section>
 
@@ -305,10 +322,14 @@ const Article = () => {
               {images.map((src, i) => {
                 const [w, h] = sizeOf(src);
                 return (
-                  <li key={src} className="mb-3 break-inside-avoid sm:mb-4">
+                  <Reveal as="li" key={`${section}-${src}`} delay={(i % 3) * 80} className="mb-3 break-inside-avoid sm:mb-4">
                     <button
                       type="button"
-                      onClick={() => setLightbox(i)}
+                      onClick={() => {
+                        setLbDir(null);
+                        setLightbox(i);
+                      }}
+                      data-cursor={t("article.view")}
                       className="group relative block w-full overflow-hidden bg-muted"
                       aria-label={t("site.project.viewImage", { index: i + 1, title: article.title })}
                     >
@@ -325,7 +346,7 @@ const Article = () => {
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     </button>
-                  </li>
+                  </Reveal>
                 );
               })}
             </ul>
@@ -389,14 +410,14 @@ const Article = () => {
         {/* Previous / next */}
         <nav aria-label={t("site.project.next")} className="border-t border-foreground">
           <div className="mx-auto grid max-w-[1280px] sm:grid-cols-[1fr_2fr]">
-            <Link to={`/article/${prevP.id}`} className="group flex flex-col justify-between gap-6 border-b border-foreground/15 px-4 py-8 sm:border-b-0 sm:border-r sm:px-6 lg:px-10">
+            <TransitionLink to={`/article/${prevP.id}`} className="group flex flex-col justify-between gap-6 border-b border-foreground/15 px-4 py-8 sm:border-b-0 sm:border-r sm:px-6 lg:px-10">
               <span className="slug inline-flex items-center gap-2">
                 <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
                 {t("site.project.prev")}
               </span>
               <span className="text-2xl font-semibold tracking-tight">{prevP.title}</span>
-            </Link>
-            <Link to={`/article/${nextP.id}`} className="group relative flex flex-col justify-between gap-6 overflow-hidden px-4 py-8 sm:px-6 lg:px-10">
+            </TransitionLink>
+            <TransitionLink to={`/article/${nextP.id}`} className="group relative flex flex-col justify-between gap-6 overflow-hidden px-4 py-8 sm:px-6 lg:px-10">
               <span className="slug inline-flex items-center gap-2">
                 {t("site.project.next")}
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -409,8 +430,8 @@ const Article = () => {
                 />
                 {nextP.title}
               </span>
-              <span className="font-serif text-xl italic text-muted-foreground">{nextP.subtitle}</span>
-            </Link>
+              <span className="text-lg text-muted-foreground">{nextP.subtitle}</span>
+            </TransitionLink>
           </div>
         </nav>
 
@@ -445,7 +466,17 @@ const Article = () => {
       </main>
 
       {lightbox !== null && images.length > 0 && (
-        <Lightbox images={images} index={lightbox} title={article.title} onClose={() => setLightbox(null)} onIndex={setLightbox} />
+        <Lightbox
+          images={images}
+          index={lightbox}
+          dir={lbDir}
+          title={article.title}
+          onClose={() => setLightbox(null)}
+          onIndex={(i, d) => {
+            setLbDir(d);
+            setLightbox(i);
+          }}
+        />
       )}
     </div>
   );
