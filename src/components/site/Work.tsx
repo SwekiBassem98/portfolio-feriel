@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { useTranslation } from "react-i18next";
 import { ArrowUpRight } from "lucide-react";
 import type { Article } from "@/data/articles.en";
-import { getProjectMeta, sizeOf, thumb, type Discipline } from "@/data/site";
+import { coverSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet, type Discipline } from "@/data/site";
 import { hasFinePointer, prefersReducedMotion, useMagnetic } from "@/lib/motion";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
@@ -137,6 +137,8 @@ const Contents = ({ projects }: { projects: Article[] }) => {
             <img
               key={p.id}
               src={p.image}
+              srcSet={coverSrcSet(p.image)}
+              sizes="320px"
               alt=""
               width={1672}
               height={941}
@@ -180,6 +182,8 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
                 <div className="transition-transform duration-700 ease-proof group-hover:scale-[1.035]">
                   <img
                     src={project.image}
+                    srcSet={coverSrcSet(project.image)}
+                    sizes="(min-width: 1280px) 700px, (min-width: 1024px) 55vw, 92vw"
                     alt=""
                     width={1672}
                     height={941}
@@ -199,6 +203,8 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
               <li key={src} className="group/s overflow-hidden bg-muted" style={vars({ "--i": i })}>
                 <img
                   src={thumb(src)}
+                  srcSet={thumbSrcSet(src)}
+                  sizes="(min-width: 1280px) 220px, (min-width: 1024px) 18vw, 30vw"
                   alt={`${t("site.work.previewOf", { title: project.title })} (${i + 1}/3)`}
                   width={w}
                   height={h}
@@ -217,7 +223,7 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
         <div className="flex items-start justify-between gap-6">
           <span className="sd-folio block" aria-hidden="true">
             <span
-              className="block font-sans text-[5.5rem] font-semibold leading-none tracking-[-0.06em] sm:text-[7rem]"
+              className="block whitespace-nowrap font-sans text-[clamp(4rem,20vw,5.5rem)] font-semibold leading-none tracking-[-0.06em] sm:text-[7rem]"
               style={{ color: meta.accent, WebkitTextStroke: "1.5px hsl(var(--foreground))" }}
             >
               {/* digits roll up like a numbering machine */}
@@ -228,7 +234,7 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
               ))}
             </span>
           </span>
-          <span className="slug stagger mt-3 text-right" style={vars({ "--stagger-base": "300ms" })}>
+          <span className="slug stagger mt-3 min-w-0 text-right" style={vars({ "--stagger-base": "300ms" })}>
             <span className="block">{meta.discipline === "print" ? t("site.work.disciplinePrint") : t("site.work.disciplineSocial")}</span>
           </span>
         </div>
@@ -315,7 +321,7 @@ const Work = ({ projects }: { projects: Article[] }) => {
               type="button"
               onClick={() => setFilter(f)}
               aria-pressed={filter === f}
-              className={`press rounded-full border px-4 py-2 text-sm font-medium ${
+              className={`press min-h-11 rounded-full border px-4 py-2 text-sm font-medium md:min-h-0 ${
                 filter === f ? "border-foreground bg-foreground text-background" : "border-foreground/20 hover:border-foreground"
               }`}
             >

@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
     <title>Feriel Bouzid — Graphic Designer · Brand, Print & Social</title>
     <meta name="description" content="Portfolio of Feriel Bouzid, graphic designer based in Nabeul, Tunisia: brand identities, editorial print and social media design." />
     <meta name="author" content="Feriel Bouzid" />
@@ -12,9 +13,14 @@
     <meta property="og:title" content="Feriel Bouzid — Graphic Designer" />
     <meta property="og:description" content="Brand identities, editorial print and social media design. Based in Nabeul, Tunisia." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/projects/moderna/Moderna-thumbnail.jpg" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/images/projects/moderna/Moderna-thumbnail.jpg" />
+    <meta property="og:image:width" content="1672" />
+    <meta property="og:image:height" content="941" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/images/projects/moderna/Moderna-thumbnail.jpg" />
+    <meta name="twitter:image" content="%SITE_URL%/images/projects/moderna/Moderna-thumbnail.jpg" />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <link rel="icon" href="/favicon.ico" />
 
     <!-- Apply the saved / system theme before first paint to avoid a flash -->
     <script>
@@ -25,6 +31,16 @@
         }
         var l = localStorage.getItem("language");
         if (l === "fr") document.documentElement.lang = "fr";
+      } catch (e) {}
+      // "lite" motion tier: Data Saver, slow networks or low-memory devices
+      try {
+        var c = navigator.connection || {};
+        var lite =
+          c.saveData === true ||
+          /(^|-)2g$/.test(c.effectiveType || "") ||
+          (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
+          window.matchMedia("(prefers-reduced-data: reduce)").matches;
+        if (lite) document.documentElement.classList.add("lite");
       } catch (e) {}
     </script>
   </head>
