@@ -3,20 +3,23 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
+// Eager: case studies are reached through animated page transitions
 import Article from "./pages/Article";
-import Wellness from "./pages/Wellness";
-import Travel from "./pages/Travel";
-import Creativity from "./pages/Creativity";
-import Growth from "./pages/Growth";
-import About from "./pages/About";
-import Authors from "./pages/Authors";
-import Contact from "./pages/Contact";
-import StyleGuide from "./pages/StyleGuide";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import Store from "./pages/Store";
-import NotFound from "./pages/NotFound";
+const Wellness = lazy(() => import("./pages/Wellness"));
+const Travel = lazy(() => import("./pages/Travel"));
+const Creativity = lazy(() => import("./pages/Creativity"));
+const Growth = lazy(() => import("./pages/Growth"));
+const About = lazy(() => import("./pages/About"));
+const Authors = lazy(() => import("./pages/Authors"));
+const Contact = lazy(() => import("./pages/Contact"));
+const StyleGuide = lazy(() => import("./pages/StyleGuide"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Store = lazy(() => import("./pages/Store"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
 import ScrollProgress from "./components/ScrollProgress";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -30,6 +33,7 @@ const App = () => (
       <ScrollProgress />
       <BrowserRouter>
         <ScrollToTop />
+        <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/article/:id" element={<Article />} />
@@ -47,6 +51,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

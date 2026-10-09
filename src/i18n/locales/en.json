@@ -274,7 +274,12 @@
     "nextPhaseWithHeading": "Next: {{heading}} →",
     "allPhasesCompleted": "All Project Phases Completed",
     "defaultDeliverables": "Complete Creative Suite",
-    "defaultKeySkills": ["Visual Identity", "Brand Strategy", "Typography", "Art Direction"]
+    "defaultKeySkills": [
+      "Visual Identity",
+      "Brand Strategy",
+      "Typography",
+      "Art Direction"
+    ]
   },
   "privacy": {
     "privacyPolicy": "Privacy Policy",
@@ -471,5 +476,136 @@
     "logoDesignPackage": "Logo Design Package",
     "logoDesignPackageDescription": "Custom logo design with multiple concepts and revisions.",
     "addToCart": "Add to Cart"
+  },
+  "site": {
+    "nav": {
+      "work": "Work",
+      "about": "About",
+      "experience": "Experience",
+      "skills": "Skills",
+      "contact": "Contact",
+      "cv": "CV",
+      "menu": "Menu",
+      "close": "Close",
+      "skip": "Skip to content",
+      "home": "Feriel Bouzid — home",
+      "primary": "Main navigation"
+    },
+    "hero": {
+      "kicker": "Portfolio · 2022 — 2025",
+      "role": "Graphic designer",
+      "disciplines": "Brand · Print · Social media",
+      "statementA": "I turn ideas into visuals that are",
+      "statementEm": "coherent and impactful",
+      "statementB": "— identities, printed matter and social content for brands in Tunisia and abroad.",
+      "motto": "Design that speaks before words do.",
+      "based": "Based in Nabeul, Tunisia",
+      "ctaWork": "See selected work",
+      "ctaCv": "Download CV",
+      "ctaEmail": "Email me",
+      "stackLabel": "Project covers — select to shuffle, or open the front project",
+      "shuffle": "Shuffle",
+      "openFront": "Open",
+      "factYears": "years of practice",
+      "factProjects": "case studies",
+      "factLanguages": "Arabic · French · English",
+      "factEducation": "BA Image Design, ISBA Nabeul",
+      "short": "brand, print & social"
+    },
+    "work": {
+      "label": "Selected work",
+      "title": "Six projects, two disciplines.",
+      "intro": "Commercial work across social media and print — each one built on the client's own brand language.",
+      "contents": "Contents",
+      "all": "All",
+      "social": "Social media",
+      "print": "Print & editorial",
+      "open": "Open case study",
+      "deliverables": "Deliverables",
+      "discipline": "Discipline",
+      "year": "Year",
+      "sector": "Sector",
+      "disciplineSocial": "Social media design",
+      "disciplinePrint": "Print & editorial design",
+      "count": "{{count}} projects",
+      "previewOf": "Preview of {{title}}"
+    },
+    "about": {
+      "label": "About",
+      "title": "I like turning ideas into visuals that are",
+      "titleEm": "coherent and impactful.",
+      "education": "Education",
+      "educationValue": "BA in Image Design — Graphic Advertising",
+      "educationSchool": "Institut Supérieur des Beaux-Arts de Nabeul, 2022",
+      "languages": "Languages",
+      "location": "Location",
+      "availability": "Availability",
+      "workModel": "Work model",
+      "qualities": "How I work"
+    },
+    "experience": {
+      "label": "Experience",
+      "title": "Where I've worked",
+      "current": "Current"
+    },
+    "skills": {
+      "label": "Skills",
+      "title": "Disciplines & tools",
+      "disciplines": "Disciplines",
+      "tools": "Tools",
+      "production": "Production know-how",
+      "photography": "Product photography"
+    },
+    "contact": {
+      "label": "Contact",
+      "titleA": "Have a brand, a publication",
+      "titleEm": "or a campaign",
+      "titleB": "in mind?",
+      "emailCta": "Write to me",
+      "copy": "Copy email",
+      "copied": "Email address copied",
+      "copyFailed": "Couldn't copy — the address is {{email}}",
+      "cv": "Download CV",
+      "formTitle": "Or send a short brief",
+      "formNote": "This opens your email app with the message ready to send — nothing is stored on this site.",
+      "send": "Open in my email app",
+      "subjectDefault": "Project enquiry",
+      "from": "From"
+    },
+    "footer": {
+      "colophon": "Set in Inter Tight and JetBrains Mono. Built with React.",
+      "proof": "Proof mode",
+      "proofHint": "Shows the baseline grid and margins (shortcut: G)",
+      "back": "Back to top"
+    },
+    "project": {
+      "back": "All projects",
+      "next": "Next project",
+      "prev": "Previous project",
+      "role": "Role",
+      "sector": "Sector",
+      "year": "Year",
+      "deliverables": "Deliverables",
+      "discipline": "Discipline",
+      "overview": "Overview",
+      "approach": "Approach",
+      "skills": "Key skills",
+      "gallery": "The work",
+      "pieces": "{{count}} pieces",
+      "file": "Full project file",
+      "fileDesc": "The complete print-ready document, as delivered.",
+      "openPdf": "Open PDF",
+      "talk": "Have a similar project?",
+      "emailFeriel": "Email Feriel",
+      "allFilter": "All",
+      "viewImage": "Open image {{index}} of {{title}}",
+      "close": "Close",
+      "prevImg": "Previous image",
+      "nextImg": "Next image",
+      "counter": "{{index}} of {{total}}",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied",
+      "folio": "Folio"
+    }
   }
 }
