@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
-const Article = lazy(() => import("./pages/Article"));
+// Eager: case studies are reached through animated page transitions
+import Article from "./pages/Article";
 const Wellness = lazy(() => import("./pages/Wellness"));
 const Travel = lazy(() => import("./pages/Travel"));
 const Creativity = lazy(() => import("./pages/Creativity"));

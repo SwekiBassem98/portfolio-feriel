@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import { PROFILE } from "@/data/site";
 import { RegMark } from "@/components/Header";
 import Reveal from "./Reveal";
+import MaskText from "./MaskText";
+import RegisterText from "./RegisterText";
 
 const fieldCls =
   "w-full border-0 border-b border-background/25 bg-transparent px-0 py-3 text-base text-background placeholder:text-background/40 focus:border-spot focus:outline-none focus:ring-0 focus-visible:outline-none";
@@ -56,18 +58,26 @@ const Contact = () => {
   const socials = Object.entries(PROFILE.links).filter(([, url]) => url);
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="ink-panel relative bg-foreground text-background">
+    <section id="contact" aria-labelledby="contact-title" className="ink-panel sd-rise relative bg-foreground text-background">
       <div className="mx-auto max-w-[1280px] px-4 pb-10 pt-20 sm:px-6 sm:pt-28 lg:px-10">
-        <Reveal as="header">
-          <div className="flex items-baseline gap-3 border-t border-background pt-3">
+        {/* Closing callback to the opening: the title comes into register */}
+        <Reveal as="header" variant="stage">
+          <div className="relative flex items-baseline gap-3 pt-3">
+            <span className="rule-draw absolute inset-x-0 top-0 h-px bg-background" aria-hidden="true" />
             <span className="font-mono text-xs text-spot">05</span>
             <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-background/60">{t("site.contact.label")}</span>
           </div>
           <h2 id="contact-title" className="mt-8 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-background">
-            {t("site.contact.titleA")} <em className="font-serif font-normal italic tracking-normal text-spot">{t("site.contact.titleEm")}</em>{" "}
-            {t("site.contact.titleB")}
+            <RegisterText auto delay={700}>
+              <MaskText base={200}>
+                {t("site.contact.titleA")} <em className="font-serif font-normal italic tracking-normal text-spot">{t("site.contact.titleEm")}</em>{" "}
+                {t("site.contact.titleB")}
+              </MaskText>
+            </RegisterText>
           </h2>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-background/70">{t("index.contactSectionIntro")}</p>
+          <p className="stagger mt-6 max-w-xl text-lg leading-relaxed text-background/70" style={{ ["--stagger-base" as string]: "800ms" }}>
+            <span className="block">{t("index.contactSectionIntro")}</span>
+          </p>
         </Reveal>
 
         <div className="mt-14 grid gap-14 lg:grid-cols-12">
@@ -84,7 +94,7 @@ const Contact = () => {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2 rounded-full border border-background/30 px-5 py-3 text-sm font-semibold transition-colors hover:border-background"
+                className="press inline-flex items-center gap-2 rounded-full border border-background/30 px-5 py-3 text-sm font-semibold transition-colors hover:border-background"
               >
                 {copied ? <Check className="h-4 w-4 text-spot" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
                 {copied ? t("site.contact.copied") : t("site.contact.copy")}
@@ -92,7 +102,7 @@ const Contact = () => {
               <a
                 href={PROFILE.cvUrl}
                 download={PROFILE.cvFileName}
-                className="inline-flex items-center gap-2 rounded-full bg-spot px-5 py-3 text-sm font-semibold text-[#141312] transition-transform hover:-translate-y-0.5"
+                className="press inline-flex items-center gap-2 rounded-full bg-spot px-5 py-3 text-sm font-semibold text-[#141312] transition-transform hover:-translate-y-0.5"
               >
                 <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />
                 {t("site.contact.cv")}
@@ -171,7 +181,7 @@ const Contact = () => {
               <div className="flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-spot hover:text-[#141312]"
+                  className="press inline-flex items-center justify-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-spot hover:text-[#141312]"
                 >
                   {t("site.contact.send")}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -185,9 +195,9 @@ const Contact = () => {
         </div>
 
         {/* Footer / colophon */}
-        <footer className="mt-24 grid gap-6 border-t border-background/20 pt-6 text-xs text-background/60 sm:grid-cols-[1fr_auto_auto] sm:items-center">
+        <Reveal as="footer" variant="fade" className="mt-24 grid gap-6 border-t border-background/20 pt-6 text-xs text-background/60 sm:grid-cols-[1fr_auto_auto] sm:items-center">
           <div className="flex items-center gap-3">
-            <RegMark className="h-4 w-4 text-background" />
+            <RegMark className="reg-spin h-4 w-4 text-background" />
             <span>
               © {new Date().getFullYear()} {PROFILE.name}. {t("site.footer.colophon")}
             </span>
@@ -210,7 +220,7 @@ const Contact = () => {
             {t("site.footer.back")}
             <ArrowUp className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
-        </footer>
+        </Reveal>
       </div>
     </section>
   );

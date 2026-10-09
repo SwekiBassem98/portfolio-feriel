@@ -1,0 +1,614 @@
+/* =====================================================================
+   MOTION SYSTEM — "press run"
+   ---------------------------------------------------------------------
+   Motion borrows from the printing press the visual identity is built on:
+   plates come into register, sheets are dealt onto the stack, colour
+   plates are laid down before the image, crop marks are drawn last.
+
+   Durations      micro 160ms · short 320ms · base 640ms · long 960ms
+   Stagger        70ms between siblings (40ms on small screens)
+   Easing         --ease-out     entrances: fast start, long soft settle
+                  --ease-in-out  moves & page transitions
+                  --ease-in      exits: quick, never lingering
+                  --ease-press   tactile feedback: tiny overshoot
+   Rules          · only transform / opacity / clip-path are animated
+                  · nothing hides content for longer than ~0.9s
+                  · scroll-linked effects are progressive enhancement
+                    (CSS scroll timelines, desktop only)
+                  · prefers-reduced-motion = static, fully visible page
+   ===================================================================== */
+
+:root {
+  --m-micro: 160ms;
+  --m-short: 320ms;
+  --m-base: 640ms;
+  --m-long: 960ms;
+  --m-stagger: 70ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --rise: 18px;
+}
+@media (max-width: 767px) {
+  :root {
+    --m-stagger: 40ms;
+    --rise: 12px;
+  }
+}
+
+@property --spread {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+/* ---------------------------------------------------------------------
+   1. Reveal variants (driven by <Reveal variant="…"/>)
+   ------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--rise), 0);
+  transition:
+    opacity var(--m-base) var(--ease-out),
+    transform var(--m-base) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal[data-variant="fade"] {
+  transform: none;
+}
+/* the wrapper itself stays put; its children choreograph themselves */
+.reveal[data-variant="stage"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------
+   2. Masked text: words rise out of a hairline mask, one after another
+   ------------------------------------------------------------------- */
+.mw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room for descenders and italic overhang inside the mask */
+  padding: 0 0.06em 0.12em;
+  margin: 0 -0.06em -0.12em;
+}
+.mw > span {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  transition: transform var(--m-long) var(--ease-out);
+  transition-delay: calc(var(--mw-base, 0ms) + var(--i, 0) * var(--m-stagger));
+}
+.is-visible .mw > span,
+.is-in .mw > span,
+.mw-play .mw > span {
+  transform: none;
+}
+
+/* mount-time variants (keyframes, so they play on first render) */
+.mw-intro .mw > span,
+.mw-swap > span {
+  animation: mw-in var(--m-long) var(--ease-out) both;
+  animation-delay: calc(var(--mw-base, 0ms) + var(--i, 0) * var(--m-stagger));
+}
+.mw-swap > span {
+  animation-duration: 520ms;
+}
+html[data-intro="quick"] .mw-intro .mw > span {
+  animation-duration: var(--m-base);
+}
+@keyframes mw-in {
+  from { transform: translate3d(0, 108%, 0); }
+  to { transform: none; }
+}
+
+/* ---------------------------------------------------------------------
+   3. Crop marks are drawn in after the image lands
+   ------------------------------------------------------------------- */
+.reveal .crop::before,
+.reveal .crop::after {
+  opacity: 0;
+  inset: calc(-1 * (var(--cg) + var(--cm) + 18px));
+  transition:
+    inset var(--m-long) var(--ease-out) 420ms,
+    opacity var(--m-short) linear 420ms;
+}
+.reveal.is-visible .crop::before,
+.reveal.is-visible .crop::after {
+  opacity: 1;
+  inset: calc(-1 * (var(--cg) + var(--cm)));
+}
+
+/* ---------------------------------------------------------------------
+   4. Plate reveal for project covers:
+      the client's colour plate is printed first, then the image
+   ------------------------------------------------------------------- */
+.plate {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--m-base) var(--ease-in-out);
+}
+.plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--plate, hsl(var(--spot)));
+  transform-origin: top;
+  transition: transform var(--m-base) var(--ease-in-out) 360ms;
+  pointer-events: none;
+  z-index: 2;
+}
+.plate .plate-img {
+  transform: scale(1.14);
+  transition: transform 1400ms var(--ease-out) 360ms;
+}
+.is-visible .plate {
+  clip-path: inset(0 0 0 0);
+}
+.is-visible .plate::after {
+  transform: scaleY(0);
+}
+.is-visible .plate .plate-img {
+  transform: none;
+}
+
+/* staggered children (sample strip, fact rows, tool cells…) */
+.stagger > * {
+  --sd: calc(var(--stagger-base, 0ms) + var(--i, 0) * var(--m-stagger));
+  opacity: 0;
+  transform: translate3d(0, var(--rise), 0);
+  transition:
+    opacity var(--m-base) var(--ease-out) var(--sd),
+    transform var(--m-base) var(--ease-out) var(--sd),
+    background-color var(--m-short) var(--ease-out),
+    color var(--m-short) var(--ease-out);
+}
+.is-visible .stagger > *,
+.stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* rules draw from left to right */
+.rule-draw {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--m-long) var(--ease-in-out);
+}
+.is-visible .rule-draw,
+.is-visible.rule-draw {
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------
+   5. Registration: C, M, Y plates drift into the black (K) plate.
+      Used by the opening sequence and echoed by the contact title.
+   ------------------------------------------------------------------- */
+.register {
+  position: relative;
+  display: inline-block;
+}
+.register .reg-ghost {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: multiply;
+  opacity: 0;
+}
+.dark .register .reg-ghost,
+.ink-panel .register .reg-ghost {
+  mix-blend-mode: screen;
+}
+.register .reg-c { color: #00aeef; }
+.register .reg-m { color: #ec008c; }
+.register .reg-y { color: #ffd400; }
+
+.is-visible .register.reg-auto .reg-c,
+.register.is-in .reg-c { animation: reg-c 1300ms var(--ease-in-out) var(--reg-delay, 120ms) both; }
+.is-visible .register.reg-auto .reg-m,
+.register.is-in .reg-m { animation: reg-m 1300ms var(--ease-in-out) calc(var(--reg-delay, 120ms) + 60ms) both; }
+.is-visible .register.reg-auto .reg-y,
+.register.is-in .reg-y { animation: reg-y 1300ms var(--ease-in-out) calc(var(--reg-delay, 120ms) + 120ms) both; }
+
+@keyframes reg-c {
+  0% { opacity: 0.95; transform: translate3d(-0.07em, -0.035em, 0); }
+  70% { opacity: 0.7; }
+  100% { opacity: 0; transform: none; }
+}
+@keyframes reg-m {
+  0% { opacity: 0.9; transform: translate3d(0.06em, 0.045em, 0); }
+  70% { opacity: 0.65; }
+  100% { opacity: 0; transform: none; }
+}
+@keyframes reg-y {
+  0% { opacity: 0.9; transform: translate3d(0.02em, -0.07em, 0); }
+  70% { opacity: 0.6; }
+  100% { opacity: 0; transform: none; }
+}
+
+/* ---------------------------------------------------------------------
+   6. Opening sequence (first visit per session = "full", else "quick")
+   ------------------------------------------------------------------- */
+.intro-item {
+  animation: intro-rise var(--m-long) var(--ease-out) both;
+  animation-delay: calc(var(--intro-base, 0ms) + var(--i, 0) * 90ms);
+}
+html[data-intro="quick"] .intro-item {
+  --intro-base: 0ms !important;
+  animation-duration: var(--m-base);
+}
+@keyframes intro-rise {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.intro-rule {
+  animation: intro-rule 1100ms var(--ease-in-out) both;
+  transform-origin: left;
+}
+@keyframes intro-rule {
+  from { transform: scaleX(0); }
+  to { transform: none; }
+}
+
+/* sheets dealt onto the proof stack */
+.deal {
+  animation: deal 1000ms var(--ease-out) both;
+  animation-delay: calc(var(--intro-base, 0ms) + var(--i, 0) * 85ms);
+}
+html[data-intro="quick"] .deal {
+  --intro-base: 100ms !important;
+}
+@keyframes deal {
+  from { opacity: 0; transform: translate3d(0, 70px, 0) rotate(-8deg); }
+  to { opacity: 1; transform: none; }
+}
+
+/* the stack fans out a little on hover: interaction reveals depth */
+.stack {
+  --spread: 1;
+  perspective: 1400px;
+}
+.stack-tilt {
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 500ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .stack:hover {
+    --spread: 1.55;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   7. Signature: contents preview with an accent "plate wipe"
+   ------------------------------------------------------------------- */
+.preview-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  animation: wipe 560ms var(--ease-in-out) both;
+  pointer-events: none;
+}
+@keyframes wipe {
+  0% { clip-path: inset(0 100% 0 0); }
+  45% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 100%); }
+}
+.row-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--m-base) var(--ease-out);
+}
+.group:hover .row-fill,
+.group:focus-visible .row-fill {
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------
+   8. Micro-interactions
+   ------------------------------------------------------------------- */
+.press {
+  transition:
+    transform var(--m-micro) var(--ease-press),
+    background-color var(--m-short) var(--ease-out),
+    color var(--m-short) var(--ease-out),
+    border-color var(--m-short) var(--ease-out);
+}
+.press:active {
+  transform: scale(0.965);
+}
+/* arrow slips out and back in on hover */
+.arrow-slide {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+}
+.arrow-slide > svg {
+  transition: transform var(--m-short) var(--ease-in-out);
+}
+.arrow-slide > svg + svg {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(-120%, 120%, 0);
+}
+.group:hover .arrow-slide > svg:first-child,
+.group:focus-visible .arrow-slide > svg:first-child {
+  transform: translate3d(120%, -120%, 0);
+}
+.group:hover .arrow-slide > svg + svg,
+.group:focus-visible .arrow-slide > svg + svg {
+  transform: none;
+}
+
+/* cursor label (adds a caption next to the native pointer, never replaces it) */
+.cursor-label {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 120;
+  pointer-events: none;
+  transform: translate3d(-100px, -100px, 0);
+}
+.cursor-label > span {
+  display: inline-block;
+  transform: scale(0.4);
+  opacity: 0;
+  transition:
+    transform var(--m-short) var(--ease-press),
+    opacity var(--m-micro) linear;
+}
+.cursor-label.is-on > span {
+  transform: none;
+  opacity: 1;
+}
+
+/* registration mark turns a quarter when its section arrives */
+.reg-spin {
+  transition: transform 1200ms var(--ease-in-out);
+}
+.is-visible .reg-spin,
+.reg-spin.is-on {
+  transform: rotate(90deg);
+}
+
+/* ---------------------------------------------------------------------
+   9. Navigation
+   ------------------------------------------------------------------- */
+.nav-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  height: 1px;
+  width: 1px;
+  background: currentColor;
+  transform-origin: left;
+  transition:
+    transform 520ms var(--ease-in-out),
+    opacity var(--m-short) linear;
+}
+.site-header {
+  transition:
+    transform 420ms var(--ease-in-out),
+    background-color var(--m-short) linear,
+    border-color var(--m-short) linear;
+}
+.site-header[data-hidden="true"] {
+  transform: translate3d(0, -100%, 0);
+}
+
+/* mobile menu: the sheet is pulled down, then entries are set line by line */
+.menu-sheet {
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 560ms var(--ease-in-out),
+    visibility 0s linear 560ms;
+}
+.menu-sheet[data-open="true"] {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition:
+    clip-path 560ms var(--ease-in-out),
+    visibility 0s;
+}
+.menu-sheet .menu-item {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-in);
+}
+.menu-sheet[data-open="true"] .menu-item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--m-base) var(--ease-out),
+    transform var(--m-base) var(--ease-out);
+  transition-delay: calc(180ms + var(--i, 0) * 55ms);
+}
+
+/* ---------------------------------------------------------------------
+   10. Page transitions (View Transitions API, where supported)
+   ------------------------------------------------------------------- */
+::view-transition-old(root) {
+  animation: vt-out var(--m-short) var(--ease-in) both;
+}
+::view-transition-new(root) {
+  animation: vt-in var(--m-base) var(--ease-out) 80ms both;
+}
+@keyframes vt-out {
+  to { opacity: 0; transform: translate3d(0, -24px, 0); }
+}
+@keyframes vt-in {
+  from { opacity: 0; transform: translate3d(0, 36px, 0); }
+}
+::view-transition-group(project-cover) {
+  animation-duration: 760ms;
+  animation-timing-function: var(--ease-in-out);
+  z-index: 10;
+}
+::view-transition-old(project-cover),
+::view-transition-new(project-cover) {
+  animation: none;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+::view-transition-group(project-title) {
+  animation-duration: 760ms;
+  animation-timing-function: var(--ease-in-out);
+}
+html.vt-plain [data-vt-target] {
+  view-transition-name: none !important;
+}
+
+/* theme switch: circular reveal from the toggle */
+html.vt-theme::view-transition-old(root) {
+  animation: none;
+}
+html.vt-theme::view-transition-new(root) {
+  animation: theme-reveal 720ms var(--ease-in-out) both;
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 100%) var(--vt-y, 0)); }
+  to { clip-path: circle(150vmax at var(--vt-x, 100%) var(--vt-y, 0)); }
+}
+@keyframes spin-in {
+  from { transform: rotate(-90deg) scale(0.6); opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------
+   11. Lightbox
+   ------------------------------------------------------------------- */
+.lb-enter {
+  animation: lb-fade var(--m-short) var(--ease-out) both;
+}
+@keyframes lb-fade {
+  from { opacity: 0; }
+}
+.lb-img {
+  animation: lb-in 480ms var(--ease-out) both;
+}
+.lb-img[data-dir="next"] { --lb-from: 48px; }
+.lb-img[data-dir="prev"] { --lb-from: -48px; }
+@keyframes lb-in {
+  from { opacity: 0; transform: translate3d(var(--lb-from, 0), 0, 0) scale(0.97); }
+}
+
+/* ---------------------------------------------------------------------
+   12. Scroll-linked storytelling — progressive enhancement only:
+       browsers with CSS scroll timelines, desktop, motion allowed.
+       No JS scroll listeners, no scroll hijacking.
+   ------------------------------------------------------------------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    /* the name drifts up and slightly apart as the hero leaves */
+    .sd-hero-a {
+      animation: sd-hero-a linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90vh;
+    }
+    .sd-hero-b {
+      animation: sd-hero-b linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90vh;
+    }
+    @keyframes sd-hero-a { to { transform: translate3d(-3%, -6vh, 0); } }
+    @keyframes sd-hero-b { to { transform: translate3d(4%, -9vh, 0); } }
+
+    .sd-stack {
+      animation: sd-stack linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    @keyframes sd-stack { to { transform: translate3d(0, -10vh, 0) rotate(-2deg); } }
+
+    /* gentle parallax inside project covers */
+    .sd-parallax {
+      animation: sd-parallax linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    @keyframes sd-parallax {
+      from { transform: translate3d(0, -4%, 0) scale(1.08); }
+      to { transform: translate3d(0, 4%, 0) scale(1.08); }
+    }
+
+    /* the folio number slides against the scroll, like a running head */
+    .sd-folio {
+      animation: sd-folio linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    @keyframes sd-folio {
+      from { transform: translate3d(0, 28px, 0); }
+      to { transform: translate3d(0, -28px, 0); }
+    }
+
+    /* the ink panel rises and squares off as it arrives */
+    .sd-rise {
+      animation: sd-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    @keyframes sd-rise {
+      from { clip-path: inset(6% 3% 0 3% round 28px); }
+      to { clip-path: inset(0 0 0 0 round 0); }
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------
+   13. Reduced motion: everything visible, nothing moves
+   ------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .stagger > *,
+  .mw > span,
+  .mw-swap > span,
+  .intro-item,
+  .deal,
+  .menu-sheet .menu-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .plate,
+  .menu-sheet[data-open="true"] {
+    clip-path: none !important;
+  }
+  .plate::after,
+  .register .reg-ghost,
+  .preview-wipe {
+    display: none !important;
+  }
+  .plate .plate-img,
+  .rule-draw,
+  .intro-rule {
+    transform: none !important;
+    animation: none !important;
+  }
+  .stack-tilt {
+    transform: none !important;
+  }
+  .stack:hover {
+    --spread: 1;
+  }
+  .site-header[data-hidden="true"] {
+    transform: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

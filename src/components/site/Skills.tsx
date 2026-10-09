@@ -31,11 +31,11 @@ const Skills = () => {
       <SectionHead number="04" label={t("site.skills.label")} id="skills-title" title={t("site.skills.title")} />
 
       <div className="mt-12 grid gap-12 lg:grid-cols-12">
-        <Reveal className="lg:col-span-5">
+        <Reveal variant="stage" className="lg:col-span-5">
           <h3 className="slug mb-4">{t("site.skills.disciplines")}</h3>
-          <ul className="border-t border-foreground">
+          <ul className="stagger border-t border-foreground">
             {disciplines.map((d, i) => (
-              <li key={d} className="flex items-baseline gap-4 border-b border-foreground/15 py-4">
+              <li key={d} style={{ ["--i" as string]: i }} className="flex items-baseline gap-4 border-b border-foreground/15 py-4">
                 <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
                 <span className="text-2xl font-semibold tracking-tight sm:text-3xl">{d}</span>
               </li>
@@ -43,11 +43,11 @@ const Skills = () => {
           </ul>
         </Reveal>
 
-        <Reveal delay={120} className="lg:col-span-6 lg:col-start-7">
+        <Reveal variant="stage" className="lg:col-span-6 lg:col-start-7">
           <h3 className="slug mb-4">{t("site.skills.tools")}</h3>
-          <ul className="grid grid-cols-2 border-l border-t border-foreground/15 sm:grid-cols-3">
-            {tools.map(([name, tag]) => (
-              <li key={name} className="group border-b border-r border-foreground/15 p-4 transition-colors hover:bg-foreground hover:text-background sm:p-5">
+          <ul className="stagger grid grid-cols-2 border-l border-t border-foreground/15 sm:grid-cols-3">
+            {tools.map(([name, tag], i) => (
+              <li key={name} style={{ ["--i" as string]: i, ["--stagger-base" as string]: "200ms" }} className="group border-b border-r border-foreground/15 p-4 transition-colors hover:bg-foreground hover:text-background sm:p-5">
                 <span className="block text-lg font-semibold tracking-tight">{name}</span>
                 <span className="mt-1 block text-xs text-muted-foreground transition-colors group-hover:text-background/70">{tag}</span>
               </li>

@@ -7,6 +7,7 @@ import About from "@/components/site/About";
 import Experience from "@/components/site/Experience";
 import Skills from "@/components/site/Skills";
 import Contact from "@/components/site/Contact";
+import CursorLabel from "@/components/site/CursorLabel";
 import { getArticles } from "@/data/articles";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -26,6 +27,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="grain" aria-hidden="true" />
+      <CursorLabel />
       <Header />
       <main id="main">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-10">

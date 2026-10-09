@@ -39,10 +39,10 @@ const About = () => {
           <p>{t("index.aboutIntro3")}</p>
         </Reveal>
 
-        <Reveal delay={120} className="lg:col-span-5 lg:col-start-8">
-          <dl className="border-t border-foreground">
-            {facts.map((f) => (
-              <div key={f.k} className="grid grid-cols-[7.5rem_1fr] gap-4 border-b border-foreground/15 py-4 sm:grid-cols-[9rem_1fr]">
+        <Reveal variant="stage" className="lg:col-span-5 lg:col-start-8">
+          <dl className="stagger border-t border-foreground" style={{ ["--stagger-base" as string]: "150ms" }}>
+            {facts.map((f, i) => (
+              <div key={f.k} style={{ ["--i" as string]: i }} className="grid grid-cols-[7.5rem_1fr] gap-4 border-b border-foreground/15 py-4 sm:grid-cols-[9rem_1fr]">
                 <dt className="slug pt-1">{f.k}</dt>
                 <dd>
                   <span className="flex items-center gap-2 font-medium">
@@ -57,12 +57,13 @@ const About = () => {
         </Reveal>
       </div>
 
-      <Reveal className="mt-16">
+      <Reveal variant="stage" className="mt-16">
         <h3 className="slug mb-4">{t("site.about.qualities")}</h3>
-        <ol className="grid border-t border-foreground/15 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="stagger grid border-t border-foreground/15 sm:grid-cols-2 lg:grid-cols-4">
           {qualities.map(([title, desc], i) => (
             <li
               key={title}
+              style={{ ["--i" as string]: i }}
               className={`border-b border-foreground/15 py-6 sm:pr-6 ${i % 2 === 1 ? "sm:border-l sm:pl-6" : ""} ${i > 0 ? "lg:border-l lg:pl-6" : ""}`}
             >
               <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
