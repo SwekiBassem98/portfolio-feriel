@@ -7,135 +7,273 @@ All colors MUST be HSL.
 */
 
 @layer base {
+  /* ------------------------------------------------------------------
+     "Proof sheet" design system
+     Paper + ink + one spot colour (Feriel's orange). Every colour is HSL
+     so shadcn/ui components keep working.
+     --spot      : large type, graphics, fills (#F44B0B)
+     --spot-ink  : small text / links on paper (AA contrast)
+  ------------------------------------------------------------------ */
   :root {
-    /* Folio 2020 Minimalist Clean Palette
-       Canvas: Clean crisp light (#F9FAFB)
-       Accent: International Folio Orange (#F44B0B / hsl(16, 93%, 50%))
-       Text: High contrast charcoal/black (#0F172A)
-    */
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
+    --background: 43 28% 93%;          /* paper  #F3F0E8 */
+    --foreground: 30 5% 7%;            /* ink    #141312 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 45 33% 97%;
+    --card-foreground: 30 5% 7%;
+    --popover: 45 33% 97%;
+    --popover-foreground: 30 5% 7%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --primary: 16 91% 50%;             /* spot   #F44B0B */
+    --primary-foreground: 30 5% 7%;
 
-    --primary: 16 93% 50%;
-    --primary-foreground: 0 0% 100%;
+    --secondary: 40 20% 88%;
+    --secondary-foreground: 30 5% 7%;
 
-    --secondary: 210 20% 95%;
-    --secondary-foreground: 222 47% 11%;
+    --muted: 40 20% 88%;
+    --muted-foreground: 37 7% 39%;     /* #6B665D, 5:1 on paper */
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 16% 47%;
+    --accent: 16 91% 50%;
+    --accent-foreground: 30 5% 7%;
 
-    --accent: 16 93% 50%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 90%;
-    --input: 214 20% 90%;
-    --ring: 16 93% 50%;
+    --border: 38 18% 80%;
+    --input: 38 18% 80%;
+    --ring: 16 91% 50%;
 
-    --radius: 1rem;
+    --radius: 0.375rem;
 
-    /* Custom Folio tag tokens */
-    --tag-financing: 210 20% 92%;
-    --tag-lifestyle: 16 93% 94%;
-    --tag-community: 210 20% 92%;
-    --tag-wellness: 150 40% 92%;
-    --tag-travel: 35 60% 92%;
-    --tag-creativity: 16 93% 92%;
-    --tag-growth: 210 20% 92%;
+    --spot: 16 91% 50%;
+    --spot-ink: 17 90% 38%;            /* #B83A0A, 5:1 on paper */
+    --rule: 30 5% 7%;
 
-    /* Polish design tokens */
-    --cream: 210 20% 98%;
-    --cream-foreground: 222 47% 11%;
-    --surface-elevated: 0 0% 100%;
-    --shadow-soft: 220 20% 12%;
+    --ease-out: cubic-bezier(0.2, 0.7, 0.1, 1);
+    --dur: 600ms;
+
+    /* legacy tokens still used by secondary template pages */
+    --tag-financing: 40 20% 88%;
+    --tag-lifestyle: 16 91% 92%;
+    --tag-community: 40 20% 88%;
+    --tag-wellness: 150 30% 88%;
+    --tag-travel: 35 50% 88%;
+    --tag-creativity: 16 91% 92%;
+    --tag-growth: 40 20% 88%;
+    --cream: 43 28% 93%;
+    --cream-foreground: 30 5% 7%;
+    --surface-elevated: 45 33% 97%;
+    --shadow-soft: 30 10% 10%;
     --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .dark {
-    /* Folio 2020 Minimalist Dark Canvas */
-    --background: 222 47% 8%;
-    --foreground: 210 20% 98%;
+    /* "Darkroom" */
+    --background: 30 6% 7%;            /* #121110 */
+    --foreground: 39 24% 90%;          /* #ECE7DD */
 
-    --card: 222 47% 11%;
-    --card-foreground: 210 20% 98%;
+    --card: 30 5% 10%;
+    --card-foreground: 39 24% 90%;
+    --popover: 30 5% 10%;
+    --popover-foreground: 39 24% 90%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 20% 98%;
+    --primary: 18 100% 58%;            /* #FF6A2B */
+    --primary-foreground: 30 6% 7%;
 
-    --primary: 16 93% 54%;
-    --primary-foreground: 0 0% 100%;
+    --secondary: 30 5% 14%;
+    --secondary-foreground: 39 24% 90%;
 
-    --secondary: 220 25% 15%;
-    --secondary-foreground: 210 20% 98%;
+    --muted: 30 5% 14%;
+    --muted-foreground: 38 7% 60%;     /* #A19B90 */
 
-    --muted: 220 25% 15%;
-    --muted-foreground: 215 16% 65%;
+    --accent: 18 100% 58%;
+    --accent-foreground: 30 6% 7%;
 
-    --accent: 16 93% 54%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 48%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 25% 18%;
-    --input: 220 25% 18%;
-    --ring: 16 93% 54%;
+    --border: 35 6% 20%;
+    --input: 35 6% 20%;
+    --ring: 18 100% 58%;
 
-    /* Dark mode tag colors */
-    --tag-financing: 220 25% 18%;
-    --tag-lifestyle: 16 70% 20%;
-    --tag-community: 220 25% 18%;
-    --tag-wellness: 150 30% 18%;
-    --tag-travel: 35 40% 18%;
-    --tag-creativity: 16 70% 20%;
-    --tag-growth: 220 25% 18%;
+    --spot: 18 100% 58%;
+    --spot-ink: 18 100% 62%;
+    --rule: 39 24% 90%;
 
-    /* Dark mode polish tokens */
-    --cream: 222 47% 12%;
-    --cream-foreground: 210 20% 98%;
-    --surface-elevated: 222 47% 13%;
-    --shadow-soft: 222 60% 4%;
+    --tag-financing: 30 5% 16%;
+    --tag-lifestyle: 16 60% 18%;
+    --tag-community: 30 5% 16%;
+    --tag-wellness: 150 25% 16%;
+    --tag-travel: 35 35% 16%;
+    --tag-creativity: 16 60% 18%;
+    --tag-growth: 30 5% 16%;
+    --cream: 30 5% 10%;
+    --cream-foreground: 39 24% 90%;
+    --surface-elevated: 30 5% 12%;
+    --shadow-soft: 30 10% 3%;
   }
 }
 
 @layer base {
-  *,
-  *::before,
-  *::after {
+  * {
     @apply border-border;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  html,
-  body {
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    @apply bg-background text-foreground antialiased selection:bg-[#F44B0B]/20 selection:text-[#F44B0B];
-  }
-
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--spot));
+    color: hsl(var(--primary-foreground));
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    @apply font-bold tracking-tight text-foreground;
+    @apply font-sans font-semibold tracking-tight text-foreground;
+  }
+
+  /* One visible, consistent focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid hsl(var(--spot));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+/* ---------------- Proof-sheet primitives ---------------- */
+@layer components {
+  /* Mono "slug line" label, as printed in a proof's margin */
+  .slug {
+    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground;
+  }
+
+  .spot-ink {
+    color: hsl(var(--spot-ink));
+  }
+
+  /* Crop marks drawn around any element with .crop */
+  .crop {
+    position: relative;
+    --cm: 14px;   /* mark length */
+    --cg: 8px;    /* gap from the edge */
+    --cc: hsl(var(--foreground) / 0.55);
+  }
+  .crop::before,
+  .crop::after {
+    content: "";
+    position: absolute;
+    inset: calc(-1 * (var(--cg) + var(--cm)));
+    pointer-events: none;
+    background:
+      linear-gradient(var(--cc), var(--cc)) left calc(var(--cm) + var(--cg)) top 0 / 1px var(--cm),
+      linear-gradient(var(--cc), var(--cc)) left 0 top calc(var(--cm) + var(--cg)) / var(--cm) 1px,
+      linear-gradient(var(--cc), var(--cc)) right calc(var(--cm) + var(--cg)) top 0 / 1px var(--cm),
+      linear-gradient(var(--cc), var(--cc)) right 0 top calc(var(--cm) + var(--cg)) / var(--cm) 1px;
+    background-repeat: no-repeat;
+    transition: inset var(--dur) var(--ease-out), opacity 300ms;
+  }
+  .crop::after {
+    transform: scaleY(-1);
+  }
+  .crop-tight {
+    --cm: 10px;
+    --cg: 6px;
+  }
+  .group:hover .crop-hover::before,
+  .group:hover .crop-hover::after,
+  .group:focus-visible .crop-hover::before,
+  .group:focus-visible .crop-hover::after {
+    inset: calc(-1 * (var(--cg) + var(--cm) + 6px));
+  }
+
+  /* Hairline rule in ink */
+  .rule {
+    border-color: hsl(var(--foreground) / 0.9);
+  }
+
+  /* Reveal on scroll (driven by <Reveal/>) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Text link with a growing underline */
+  .ink-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 400ms var(--ease-out), color 200ms;
+  }
+  .ink-link:hover,
+  .ink-link:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Paper grain, very subtle */
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  }
+  .dark .grain {
+    mix-blend-mode: screen;
+    opacity: 0.04;
+  }
+
+  /* Easter egg: "proof mode" shows the baseline grid & margins */
+  .proof-mode body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 70;
+    background-image:
+      repeating-linear-gradient(to bottom, hsl(var(--spot) / 0.18) 0 1px, transparent 1px 8px),
+      linear-gradient(to right, transparent calc(50% - 640px), hsl(190 90% 45% / 0.25) calc(50% - 640px) calc(50% - 639px), transparent calc(50% - 639px) calc(50% + 639px), hsl(190 90% 45% / 0.25) calc(50% + 639px) calc(50% + 640px), transparent calc(50% + 640px));
+  }
+
+  /* Always-dark "ink" panel (contact/footer), identical in both themes */
+  .ink-panel {
+    --foreground: 30 5% 7%;
+    --background: 39 24% 90%;
+    --spot: 16 91% 50%;
+  }
+  .dark .ink-panel {
+    --foreground: 30 5% 11%;
+    border-top: 1px solid hsl(35 6% 20%);
+  }
+
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: hsl(var(--spot));
+    z-index: 100;
+    transition: width 80ms linear;
   }
 }
 

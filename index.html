@@ -3,21 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feriel Bouzid — Product & Graphic Designer Portfolio</title>
-    <meta name="description" content="Portfolio of Feriel Bouzid, Product & Graphic Designer specializing in brand identity, editorial print systems, and digital experiences." />
+    <title>Feriel Bouzid — Graphic Designer · Brand, Print & Social</title>
+    <meta name="description" content="Portfolio of Feriel Bouzid, graphic designer based in Nabeul, Tunisia: brand identities, editorial print and social media design." />
     <meta name="author" content="Feriel Bouzid" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#F3F0E8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)" />
 
-    <meta property="og:title" content="Feriel Bouzid — Product & Graphic Designer Portfolio" />
-    <meta property="og:description" content="Portfolio of Feriel Bouzid, Product & Graphic Designer specializing in brand identity, editorial print systems, and digital experiences." />
+    <meta property="og:title" content="Feriel Bouzid — Graphic Designer" />
+    <meta property="og:description" content="Brand identities, editorial print and social media design. Based in Nabeul, Tunisia." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
+    <meta property="og:image" content="/images/projects/moderna/Moderna-thumbnail.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:image" content="/images/projects/moderna/Moderna-thumbnail.jpg" />
+
+    <!-- Apply the saved / system theme before first paint to avoid a flash -->
+    <script>
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+        var l = localStorage.getItem("language");
+        if (l === "fr") document.documentElement.lang = "fr";
+      } catch (e) {}
+    </script>
   </head>
 
   <body>
