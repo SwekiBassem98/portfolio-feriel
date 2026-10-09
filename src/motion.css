@@ -30,9 +30,12 @@
   --ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
   --rise: 18px;
 }
+/* Phones & tablets: shorter, smaller movements (same choreography) */
 @media (max-width: 767px) {
   :root {
     --m-stagger: 40ms;
+    --m-base: 520ms;
+    --m-long: 760ms;
     --rise: 12px;
   }
 }
@@ -307,9 +310,13 @@ html[data-intro="quick"] .deal {
   transform-origin: left;
   transition: transform var(--m-base) var(--ease-out);
 }
-.group:hover .row-fill,
 .group:focus-visible .row-fill {
   transform: none;
+}
+@media (hover: hover) {
+  .group:hover .row-fill {
+    transform: none;
+  }
 }
 
 /* ---------------------------------------------------------------------
@@ -339,13 +346,19 @@ html[data-intro="quick"] .deal {
   inset: 0;
   transform: translate3d(-120%, 120%, 0);
 }
-.group:hover .arrow-slide > svg:first-child,
 .group:focus-visible .arrow-slide > svg:first-child {
   transform: translate3d(120%, -120%, 0);
 }
-.group:hover .arrow-slide > svg + svg,
 .group:focus-visible .arrow-slide > svg + svg {
   transform: none;
+}
+@media (hover: hover) {
+  .group:hover .arrow-slide > svg:first-child {
+    transform: translate3d(120%, -120%, 0);
+  }
+  .group:hover .arrow-slide > svg + svg {
+    transform: none;
+  }
 }
 
 /* cursor label (adds a caption next to the native pointer, never replaces it) */
@@ -565,6 +578,47 @@ html.vt-theme::view-transition-new(root) {
       to { clip-path: inset(0 0 0 0 round 0); }
     }
   }
+}
+
+/* ---------------------------------------------------------------------
+   12b. Adaptive performance
+   Touch devices: drop the effects that are expensive on mobile GPUs
+   (full-screen blended grain, backdrop blur, large soft shadows).
+   "lite" (html.lite, set in index.html for Data Saver, 2G or ≤2 GB RAM):
+   keep the choreography but skip the heaviest layers.
+   ------------------------------------------------------------------- */
+@media (pointer: coarse), (max-width: 767px) {
+  .grain {
+    display: none;
+  }
+  .site-header {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color: hsl(var(--background)) !important;
+  }
+  .deal {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), 0 10px 24px -14px rgba(20, 19, 18, 0.45) !important;
+  }
+}
+html.lite .grain,
+html.lite .register .reg-ghost,
+html.lite .plate::after,
+html.lite .preview-wipe {
+  display: none !important;
+}
+html.lite .plate {
+  clip-path: none;
+  transition: none;
+}
+html.lite .plate .plate-img {
+  transform: none;
+  transition: none;
+}
+html.lite .reveal {
+  transform: none;
+}
+html.lite .stack-tilt {
+  transform: none !important;
 }
 
 /* ---------------------------------------------------------------------

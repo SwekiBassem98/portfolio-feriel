@@ -1,73 +1,74 @@
-# Welcome to your Lovable project
+# Feriel Bouzid — Portfolio
 
-## Project info
+Portfolio of Feriel Bouzid, graphic designer (brand, print & social media), based in Nabeul, Tunisia.
 
-**URL**: https://lovable.dev/projects/7410f81b-8218-4f2d-bb32-1ba1f84eabb2
+Built with **Vite + React + TypeScript + Tailwind CSS**, bilingual (EN/FR), light/dark themes, and a CSS-only motion system (`src/motion.css`).
 
-## How can I edit this code?
+## Run locally
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7410f81b-8218-4f2d-bb32-1ba1f84eabb2) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js 18.18+ (Node 20 recommended, see `.nvmrc`).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm ci
+npm run dev        # http://localhost:3000
+npm run build      # production build into dist/
+npm run preview    # serve the production build
+npm run lint
+npm run typecheck
 ```
 
-**Edit a file directly in GitHub**
+## Deploy on Vercel
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The repository is ready for Vercel: `vercel.json` sets the build and the SPA routing.
 
-**Use GitHub Codespaces**
+1. Push the repository to GitHub.
+2. On [vercel.com/new](https://vercel.com/new), import the repository. Vercel detects **Vite** automatically. The settings already come from `vercel.json`:
+   - Install command: `npm ci`
+   - Build command: `npm run build`
+   - Output directory: `dist`
+3. Click **Deploy**. Every push to `main` then deploys production, and every pull request gets a preview URL.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+What `vercel.json` handles:
 
-## What technologies are used for this project?
+- **Client-side routes:** direct visits and refreshes on `/article/003` etc. are rewritten to `index.html`. Existing files are always served first.
+- **Caching:** hashed JS/CSS/fonts in `/assets` are cached for a year (immutable); images for 30 days.
+- **Security headers:** `nosniff`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, HSTS.
 
-This project is built with:
+### Site URL (social previews, canonical, sitemap)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Link previews (WhatsApp, LinkedIn, Facebook, X) need an absolute image URL. At build time the site URL is taken from Vercel's system variable `VERCEL_PROJECT_PRODUCTION_URL`, so it works without any setup.
 
-## How can I deploy this project?
+If you add a custom domain, set an environment variable in **Vercel → Project → Settings → Environment Variables**:
 
-Simply open [Lovable](https://lovable.dev/projects/7410f81b-8218-4f2d-bb32-1ba1f84eabb2) and click on Share -> Publish.
+```
+SITE_URL=https://your-domain.com
+```
 
-## Can I connect a custom domain to my Lovable project?
+The build then writes the URL into the Open Graph tags and `canonical`, and generates `robots.txt` and `sitemap.xml`.
 
-Yes, you can!
+## Images
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Original project images live in `public/images/projects/<project>/`. The site serves optimised WebP variants generated next to them:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+| Variant | Width | Used for |
+|---|---|---|
+| `thumbs/sm/<name>.webp` | 480px | grids on phones |
+| `thumbs/<name>.webp` | 960px | grids on tablets / desktop |
+| `thumbs/xl/<name>.webp` | 1800px | lightbox |
+| `<Project>-thumbnail-836.webp` / `-1672.webp` | 836 / 1672px | 16:9 project covers |
+
+The full-resolution originals are left out of the production build to keep the deployment small (~26 MB instead of ~200 MB). Set `KEEP_ORIGINALS=1` to ship them as well.
+
+When you add or replace a project image, regenerate the variants (Python 3 + Pillow) and update the sizes table:
+
+```sh
+pip install pillow
+python3 scripts/image-variants.py
+```
+
+## Content
+
+- Projects (EN / FR): `src/data/articles.en.ts`, `src/data/articles.fr.ts`
+- Brand colour, discipline, year and home-page samples per project: `src/data/site.ts`
+- Contact details, CV path and social links: `PROFILE` in `src/data/site.ts`. A social link appears only when its URL is filled in.
+- Interface copy: `src/i18n/locales/en.json`, `fr.json` (keys under `site.*`)

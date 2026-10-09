@@ -10,7 +10,7 @@ import TransitionLink from "@/components/site/TransitionLink";
 import CursorLabel from "@/components/site/CursorLabel";
 import { getArticleById, getArticles } from "@/data/articles";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { PROFILE, getProjectMeta, sizeOf, thumb } from "@/data/site";
+import { PROFILE, coverSrcSet, fullSrc, fullSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet } from "@/data/site";
 
 /* ------------------------------------------------------------------ */
 /* Lightbox                                                            */
@@ -70,7 +70,10 @@ const Lightbox = ({ images, index, dir, title, onClose, onIndex }: LightboxProps
   useEffect(() => {
     [images[(index + 1) % total], images[(index - 1 + total) % total]].forEach((src) => {
       const img = new Image();
-      img.src = src;
+      img.sizes = "100vw";
+      const set = fullSrcSet(src);
+      if (set) img.srcset = set;
+      img.src = fullSrc(src);
     });
   }, [index, images, total]);
 
@@ -94,7 +97,7 @@ const Lightbox = ({ images, index, dir, title, onClose, onIndex }: LightboxProps
         touchX.current = null;
       }}
     >
-      <div className="flex items-center justify-between px-4 py-3 sm:px-6">
+      <div className="flex items-center justify-between px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-6">
         <p className="font-mono text-xs uppercase tracking-[0.14em] text-white/70" aria-live="polite">
           {title} · {t("site.project.counter", { index: index + 1, total })}
         </p>
@@ -105,7 +108,9 @@ const Lightbox = ({ images, index, dir, title, onClose, onIndex }: LightboxProps
       <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 pb-4 sm:px-20" onClick={onClose}>
         <img
           key={src}
-          src={src}
+          src={fullSrc(src)}
+          srcSet={fullSrcSet(src)}
+          sizes="100vw"
           alt={t("article.imageAsset", { title, index: index + 1 })}
           width={w}
           height={h}
@@ -114,7 +119,7 @@ const Lightbox = ({ images, index, dir, title, onClose, onIndex }: LightboxProps
           className="lb-img max-h-full max-w-full object-contain"
         />
       </div>
-      <div className="flex items-center justify-center gap-3 pb-5 sm:absolute sm:inset-y-0 sm:left-0 sm:right-0 sm:justify-between sm:px-5 sm:pb-0 sm:pointer-events-none">
+      <div className="flex items-center justify-center gap-3 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:absolute sm:inset-y-0 sm:left-0 sm:right-0 sm:justify-between sm:px-5 sm:pb-0 sm:pointer-events-none">
         <button type="button" onClick={prev} className={`${btn} sm:pointer-events-auto`} aria-label={t("site.project.prevImg")}>
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -196,7 +201,7 @@ const Article = () => {
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-10">
           {/* Slug line */}
           <div className="flex items-center justify-between border-b border-foreground/15 py-4">
-            <TransitionLink to="/#work" className="group inline-flex items-center gap-2 text-sm font-medium">
+            <TransitionLink to="/#work" className="group -my-3 inline-flex min-h-11 items-center gap-2 py-3 text-sm font-medium">
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
               {t("site.project.back")}
             </TransitionLink>
@@ -239,6 +244,8 @@ const Article = () => {
               data-vt-target=""
               style={{ viewTransitionName: "project-cover" }}
               src={article.image}
+              srcSet={coverSrcSet(article.image)}
+              sizes="(min-width: 1280px) 1200px, 94vw"
               alt={`${article.title} — ${article.subtitle}`}
               width={1672}
               height={941}
@@ -307,7 +314,7 @@ const Article = () => {
                       type="button"
                       onClick={() => setSection(s.title)}
                       aria-pressed={section === s.title}
-                      className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                      className={`press min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-medium md:min-h-0 ${
                         section === s.title ? "border-foreground bg-foreground text-background" : "border-foreground/20 hover:border-foreground"
                       }`}
                     >
@@ -335,6 +342,8 @@ const Article = () => {
                     >
                       <img
                         src={thumb(src)}
+                        srcSet={thumbSrcSet(src)}
+                        sizes={isPrint ? "(min-width: 1280px) 600px, (min-width: 640px) 46vw, 92vw" : "(min-width: 1280px) 400px, (min-width: 768px) 30vw, 46vw"}
                         alt=""
                         width={w}
                         height={h}
@@ -380,27 +389,27 @@ const Article = () => {
                 ))}
               </ul>
               <div className="flex items-center gap-4">
-                <button type="button" onClick={copyLink} className="inline-flex items-center gap-1.5 font-medium">
+                <button type="button" onClick={copyLink} className="inline-flex min-h-11 items-center gap-1.5 font-medium">
                   <Link2 className="h-4 w-4" aria-hidden="true" />
                   <span className="ink-link">{t("site.project.copyLink")}</span>
                 </button>
                 <a
-                  className="ink-link"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center"
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("article.shareTwitter")}
                 >
-                  X
+                  <span className="ink-link">X</span>
                 </a>
                 <a
-                  className="ink-link"
+                  className="inline-flex min-h-11 items-center"
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("article.shareFacebook")}
                 >
-                  Facebook
+                  <span className="ink-link">Facebook</span>
                 </a>
               </div>
             </div>
@@ -440,7 +449,7 @@ const Article = () => {
           <div className="mx-auto flex max-w-[1280px] flex-col gap-8 px-4 py-14 sm:px-6 md:flex-row md:items-end md:justify-between lg:px-10">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-background/60">{t("site.project.talk")}</p>
-              <a href={`mailto:${PROFILE.email}`} className="group mt-3 inline-flex items-center gap-3 text-[clamp(1.6rem,4vw,3rem)] font-semibold tracking-tight">
+              <a href={`mailto:${PROFILE.email}`} className="group mt-3 inline-flex min-h-11 max-w-full items-center gap-3 break-all text-[clamp(1.25rem,5.6vw,3rem)] font-semibold tracking-tight">
                 <span className="ink-link">{PROFILE.email}</span>
                 <ArrowUpRight className="h-7 w-7 text-spot transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true" />
               </a>

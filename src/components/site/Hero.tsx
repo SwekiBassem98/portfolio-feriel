@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, typ
 import { useTranslation } from "react-i18next";
 import { ArrowDownRight, ArrowDownToLine, ArrowUpRight, Shuffle } from "lucide-react";
 import type { Article } from "@/data/articles.en";
-import { PROFILE, getProjectMeta } from "@/data/site";
+import { PROFILE, coverSrcSet, getProjectMeta } from "@/data/site";
 import { hasFinePointer, useMagnetic, useReducedMotion } from "@/lib/motion";
 import MaskText from "./MaskText";
 import RegisterText from "./RegisterText";
@@ -21,6 +21,7 @@ const useIntroMode = (): IntroMode => {
   const [mode] = useState<IntroMode>(() => {
     if (typeof window === "undefined") return "none";
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "none";
+    if (document.documentElement.classList.contains("lite")) return "quick";
     try {
       return sessionStorage.getItem("intro-seen") ? "quick" : "full";
     } catch {
@@ -61,12 +62,25 @@ const ProofStack = ({ projects }: { projects: Article[] }) => {
   useEffect(() => setOrder(projects.map((_, i) => i)), [projects]);
   const shuffle = useCallback(() => setOrder((o) => [...o.slice(1), o[0]]), []);
 
-  // Gentle auto-advance until the visitor interacts; never with reduced motion
+  // Only animate while the stack is actually on screen (saves battery on phones)
+  const [onScreen, setOnScreen] = useState(true);
   useEffect(() => {
-    if (reduced || paused || touched.current) return;
-    const id = window.setInterval(shuffle, 4200);
+    const el = stackRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Gentle auto-advance until the visitor interacts; never with reduced
+  // motion or in the lite tier, and paused off-screen / in background tabs
+  useEffect(() => {
+    if (reduced || paused || !onScreen || touched.current || document.documentElement.classList.contains("lite")) return;
+    const id = window.setInterval(() => {
+      if (!document.hidden) shuffle();
+    }, 4200);
     return () => window.clearInterval(id);
-  }, [reduced, paused, shuffle]);
+  }, [reduced, paused, onScreen, shuffle]);
 
   // Pointer tilt (desktop only): one rAF per pointer move, max ±6°
   useEffect(() => {
@@ -141,6 +155,8 @@ const ProofStack = ({ projects }: { projects: Article[] }) => {
                 >
                   <img
                     src={p.image}
+                    srcSet={coverSrcSet(p.image)}
+                    sizes="(min-width: 1024px) 34vw, min(500px, 88vw)"
                     alt=""
                     width={1672}
                     height={941}
@@ -158,7 +174,7 @@ const ProofStack = ({ projects }: { projects: Article[] }) => {
 
       {/* Caption + accessible controls for the top proof */}
       <div className="intro-item mt-3 flex items-center justify-between gap-3 border-t border-foreground/15 pt-3" style={at(1050)}>
-        <TransitionLink to={`/article/${front.id}`} coverId={front.id} className="group flex min-w-0 items-center gap-3">
+        <TransitionLink to={`/article/${front.id}`} coverId={front.id} className="group -my-2 flex min-h-11 min-w-0 items-center gap-3 py-2">
           <span className="h-3 w-3 shrink-0 rounded-full transition-colors duration-500" style={{ background: frontMeta.accent }} aria-hidden="true" />
           <span className="font-mono text-[11px] text-muted-foreground">{front.id}</span>
           <span key={front.id} className="mw mw-swap shrink-0">
@@ -179,7 +195,7 @@ const ProofStack = ({ projects }: { projects: Article[] }) => {
             touched.current = true;
             shuffle();
           }}
-          className="press group inline-flex shrink-0 items-center gap-1.5 rounded-full border border-foreground/15 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider hover:border-foreground"
+          className="press group inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-full border border-foreground/15 px-3.5 py-2 font-mono text-[11px] uppercase tracking-wider hover:border-foreground"
         >
           <Shuffle className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" aria-hidden="true" />
           {t("site.hero.shuffle")}
@@ -237,12 +253,12 @@ const Hero = ({ projects }: { projects: Article[] }) => {
       <div className="mt-10 grid gap-12 lg:mt-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
           <h1 id="hero-title" className={`font-sans font-semibold leading-[0.86] tracking-[-0.045em] ${playing ? "mw-intro" : ""}`}>
-            <span className="sd-hero-a block text-[clamp(4.25rem,15vw,10.5rem)]">
+            <span className="sd-hero-a block text-[clamp(4.25rem,min(15vw,24svh),10.5rem)]">
               <RegisterText play={mode === "full"} delay={260}>
                 <MaskText base={60}>Feriel</MaskText>
               </RegisterText>
             </span>
-            <span className="sd-hero-b block text-[clamp(4.25rem,15vw,10.5rem)]">
+            <span className="sd-hero-b block text-[clamp(4.25rem,min(15vw,24svh),10.5rem)]">
               <RegisterText play={mode === "full"} delay={360}>
                 <MaskText base={60} offset={2}>
                   Bouzid
@@ -289,13 +305,13 @@ const Hero = ({ projects }: { projects: Article[] }) => {
               <ArrowDownToLine className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
               {t("site.hero.ctaCv")}
             </a>
-            <a href={`mailto:${PROFILE.email}`} className="intro-item ink-link px-2 py-3 text-sm font-semibold" style={at(860, 2)}>
-              {PROFILE.email}
+            <a href={`mailto:${PROFILE.email}`} className="intro-item inline-flex min-h-11 items-center px-2 text-sm font-semibold" style={at(860, 2)}>
+              <span className="ink-link">{PROFILE.email}</span>
             </a>
           </div>
         </div>
 
-        <div className="lg:col-span-5 lg:pt-6">
+        <div className="mx-auto w-full max-w-[560px] lg:col-span-5 lg:mx-0 lg:max-w-none lg:pt-6">
           <ProofStack projects={projects} />
           <p className="intro-item mt-6 text-lg text-muted-foreground" style={at(1150)}>
             “{t("site.hero.motto")}”

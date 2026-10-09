@@ -5,6 +5,8 @@ export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
+  // hover styles only on devices that can hover: no "stuck" hover after a tap on phones
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     container: {
       center: true,

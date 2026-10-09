@@ -121,6 +121,27 @@ All colors MUST be HSL.
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    /* no double-tap zoom delay on buttons/links */
+    touch-action: manipulation;
+  }
+
+  body {
+    overflow-x: clip;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  /* iPhone notch / Dynamic Island in landscape (viewport-fit=cover):
+     keep content inside the safe area while backgrounds stay full-bleed */
+  @media (orientation: landscape) and (pointer: coarse) {
+    .max-w-\[1280px\] {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
   }
 
   body {
@@ -197,8 +218,6 @@ All colors MUST be HSL.
     --cm: 10px;
     --cg: 6px;
   }
-  .group:hover .crop-hover::before,
-  .group:hover .crop-hover::after,
   .group:focus-visible .crop-hover::before,
   .group:focus-visible .crop-hover::after {
     inset: calc(-1 * (var(--cg) + var(--cm) + 6px));
@@ -217,9 +236,19 @@ All colors MUST be HSL.
     background-repeat: no-repeat;
     transition: background-size 400ms var(--ease-out), color 200ms;
   }
-  .ink-link:hover,
-  .ink-link:focus-visible {
+  .ink-link:focus-visible,
+  :focus-visible > .ink-link {
     background-size: 100% 1px;
+  }
+  @media (hover: hover) {
+    .ink-link:hover,
+    :hover > .ink-link {
+      background-size: 100% 1px;
+    }
+    .group:hover .crop-hover::before,
+    .group:hover .crop-hover::after {
+      inset: calc(-1 * (var(--cg) + var(--cm) + 6px));
+    }
   }
 
   /* Paper grain, very subtle */
