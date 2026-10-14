@@ -218,7 +218,7 @@ const Hero = ({ projects }: { projects: Article[] }) => {
   const cvRef = useMagnetic<HTMLAnchorElement>(0.18, 6);
   const facts = useMemo(
     () => [
-      { value: "3", label: t("site.hero.factYears") },
+      { value: "4", label: t("site.hero.factYears") },
       { value: String(projects.length).padStart(2, "0"), label: t("site.hero.factProjects") },
       { value: "AR · FR · EN", label: t("site.hero.factLanguages"), small: true },
       { value: "2022", label: t("site.hero.factEducation") },
