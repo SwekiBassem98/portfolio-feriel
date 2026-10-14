@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { ArrowDownToLine, ArrowUp, ArrowUpRight, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
-import { PROFILE } from "@/data/site";
+import { PROFILE, cvFor } from "@/data/site";
 import { RegMark } from "@/components/Header";
 import Reveal from "./Reveal";
 import MaskText from "./MaskText";
@@ -31,6 +32,8 @@ const useProofMode = () => {
 
 const Contact = () => {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+  const cv = cvFor(language);
   const [copied, setCopied] = useState(false);
   const [proof, setProof] = useProofMode();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -85,7 +88,7 @@ const Contact = () => {
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-background/60">{t("site.contact.emailCta")}</p>
             <a
               href={`mailto:${PROFILE.email}`}
-              className="group mt-3 inline-flex max-w-full items-center gap-3 break-all text-[clamp(1.5rem,3.6vw,2.75rem)] font-semibold tracking-tight text-background"
+              className="group mt-3 inline-flex min-h-11 max-w-full items-center gap-3 break-all text-[clamp(1.25rem,5.6vw,2.75rem)] font-semibold tracking-tight text-background"
             >
               <span className="ink-link">{PROFILE.email}</span>
               <ArrowUpRight className="h-7 w-7 shrink-0 text-spot transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true" />
@@ -100,8 +103,8 @@ const Contact = () => {
                 {copied ? t("site.contact.copied") : t("site.contact.copy")}
               </button>
               <a
-                href={PROFILE.cvUrl}
-                download={PROFILE.cvFileName}
+                href={cv.url}
+                download={cv.fileName}
                 className="press inline-flex items-center gap-2 rounded-full bg-spot px-5 py-3 text-sm font-semibold text-[#141312] transition-transform hover:-translate-y-0.5"
               >
                 <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />
@@ -207,7 +210,7 @@ const Contact = () => {
             onClick={() => setProof(!proof)}
             aria-pressed={proof}
             title={t("site.footer.proofHint")}
-            className="inline-flex items-center gap-2 justify-self-start font-mono uppercase tracking-[0.14em] transition-colors hover:text-background"
+            className="-my-3 inline-flex min-h-11 items-center gap-2 justify-self-start py-3 font-mono uppercase tracking-[0.14em] transition-colors hover:text-background"
           >
             <span className={`h-2 w-2 rounded-full border border-current ${proof ? "bg-spot" : ""}`} aria-hidden="true" />
             {t("site.footer.proof")}
@@ -215,7 +218,7 @@ const Contact = () => {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-2 justify-self-start font-mono uppercase tracking-[0.14em] transition-colors hover:text-background"
+            className="-my-3 inline-flex min-h-11 items-center gap-2 justify-self-start py-3 font-mono uppercase tracking-[0.14em] transition-colors hover:text-background"
           >
             {t("site.footer.back")}
             <ArrowUp className="h-3.5 w-3.5" aria-hidden="true" />

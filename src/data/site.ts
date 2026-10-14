@@ -4,8 +4,11 @@ import { imageSizes } from "./imageSizes";
 export const PROFILE = {
   name: "Feriel Bouzid",
   email: "ferielbouzzid@gmail.com",
-  cvUrl: "/images/projects/CV Feriel Bouzid (1).pdf",
-  cvFileName: "Feriel-Bouzid-CV.pdf",
+  /** ATS-friendly CVs (single column, real text, no photo), one per site language. */
+  cv: {
+    en: { url: "/cv/Feriel-Bouzid-CV-EN.pdf", fileName: "Feriel-Bouzid-CV-EN.pdf" },
+    fr: { url: "/cv/Feriel-Bouzid-CV-FR.pdf", fileName: "Feriel-Bouzid-CV-FR.pdf" },
+  },
   /**
    * Public profile links. Leave a value empty to hide it — the site never
    * shows a placeholder link. Add the real URLs here when available.
@@ -16,6 +19,10 @@ export const PROFILE = {
     instagram: "",
   },
 } as const;
+
+export type CvLanguage = keyof typeof PROFILE.cv;
+/** The CV matching the current site language (falls back to English). */
+export const cvFor = (language: string) => PROFILE.cv[(language === "fr" ? "fr" : "en") as CvLanguage];
 
 export type Discipline = "social" | "print";
 
@@ -97,6 +104,17 @@ export const projectMeta: Record<string, ProjectMeta> = {
       "/images/projects/winkler/22.png",
     ],
   },
+  "007": {
+    accent: "#FE0000",
+    onAccent: "#FFFFFF",
+    discipline: "print",
+    year: "2026",
+    samples: [
+      "/images/projects/calotex/3.png",
+      "/images/projects/calotex/6.png",
+      "/images/projects/calotex/8.png",
+    ],
+  },
 };
 
 export const fallbackMeta: ProjectMeta = {
@@ -109,13 +127,37 @@ export const fallbackMeta: ProjectMeta = {
 
 export const getProjectMeta = (id: string): ProjectMeta => projectMeta[id] ?? fallbackMeta;
 
-/** Lightweight WebP preview (≤960px) generated next to every project image. */
-export const thumb = (src: string): string => {
-  if (!src.startsWith("/images/projects/") || src.includes("-thumbnail.")) return src;
+/* ---------------------------------------------------------------------
+   Responsive images. Every project image has WebP variants generated next
+   to it (see README → "Images"):
+     thumbs/sm/<name>.webp  480w   grids on phones
+     thumbs/<name>.webp     960w   grids on tablets / desktop
+     thumbs/xl/<name>.webp  1800w  lightbox (instead of 3–8 MB originals)
+   and each 16:9 cover has <name>-836.webp / <name>-1672.webp.
+   --------------------------------------------------------------------- */
+const isProjectImage = (src: string) => src.startsWith("/images/projects/");
+const isCover = (src: string) => src.includes("-thumbnail.");
+const variant = (src: string, dir: string) => {
   const slash = src.lastIndexOf("/");
   const name = src.slice(slash + 1).replace(/\.(png|jpe?g)$/i, ".webp");
-  return `${src.slice(0, slash)}/thumbs/${name}`;
+  return `${src.slice(0, slash)}/thumbs/${dir}${name}`;
 };
+
+/** 960px WebP preview of a gallery image. */
+export const thumb = (src: string): string => (!isProjectImage(src) || isCover(src) ? src : variant(src, ""));
+
+/** srcset for gallery previews (480w / 960w). */
+export const thumbSrcSet = (src: string): string | undefined =>
+  !isProjectImage(src) || isCover(src) ? undefined : `${variant(src, "sm/")} 480w, ${variant(src, "")} 960w`;
+
+/** Large WebP for the lightbox, with the 960w preview for small screens. */
+export const fullSrc = (src: string): string => (!isProjectImage(src) || isCover(src) ? src : variant(src, "xl/"));
+export const fullSrcSet = (src: string): string | undefined =>
+  !isProjectImage(src) || isCover(src) ? undefined : `${variant(src, "")} 960w, ${variant(src, "xl/")} 1800w`;
+
+/** srcset for the 16:9 project covers (836w / 1672w WebP). */
+export const coverSrcSet = (src: string): string | undefined =>
+  isCover(src) ? `${src.replace(/\.(jpe?g|png)$/i, "-836.webp")} 836w, ${src.replace(/\.(jpe?g|png)$/i, "-1672.webp")} 1672w` : undefined;
 
 /** Intrinsic size of a project image, for width/height attributes. */
 export const sizeOf = (src: string): [number, number] => imageSizes[src] ?? [1600, 1600];

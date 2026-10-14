@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Moon, Sun, ArrowDownToLine } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { PROFILE } from "@/data/site";
+import { PROFILE, cvFor } from "@/data/site";
 
 const SECTIONS = ["work", "about", "experience", "skills", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
@@ -45,6 +45,7 @@ const useActiveSection = (enabled: boolean) => {
 const Header = () => {
   const { t } = useTranslation();
   const { language, toggleLanguage } = useLanguage();
+  const cv = cvFor(language);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
@@ -177,7 +178,7 @@ const Header = () => {
   };
 
   const iconBtn =
-    "inline-flex h-9 w-9 items-center justify-center rounded-full border border-foreground/15 text-foreground/80 transition-colors hover:border-foreground hover:text-foreground";
+    "press inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-foreground/15 text-foreground/80 hover:border-foreground hover:text-foreground md:h-9 md:w-9";
 
   return (
     <>
@@ -193,10 +194,10 @@ const Header = () => {
           scrolled || open ? "border-b border-foreground/10 bg-background/90 backdrop-blur-md" : "border-b border-transparent bg-background"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
-          <Link to="/" className="group flex items-center gap-2.5" aria-label={t("site.nav.home")} onClick={() => setOpen(false)}>
+        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-10">
+          <Link to="/" className="group -my-2 flex min-h-11 items-center gap-2.5 py-2" aria-label={t("site.nav.home")} onClick={() => setOpen(false)}>
             <RegMark className="h-5 w-5 text-foreground transition-transform duration-500 group-hover:rotate-90" />
-            <span className="text-[15px] font-semibold tracking-tight">Feriel Bouzid</span>
+            <span className="whitespace-nowrap text-[15px] font-semibold tracking-tight">Feriel Bouzid</span>
             <span className="hidden text-sm text-muted-foreground xl:inline">— {t("site.hero.role").toLowerCase()}</span>
           </Link>
 
@@ -217,7 +218,7 @@ const Header = () => {
                       data-section={id}
                       onClick={goTo(id)}
                       aria-current={isActive ? "true" : undefined}
-                      className={`group relative flex items-baseline gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors ${
+                      className={`group relative flex items-baseline gap-1.5 rounded-full px-3 py-3 text-sm transition-colors lg:py-1.5 ${
                         isActive ? "text-foreground" : "text-foreground/65 hover:text-foreground"
                       }`}
                     >
@@ -238,10 +239,10 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <a
-              href={PROFILE.cvUrl}
-              download={PROFILE.cvFileName}
+              href={cv.url}
+              download={cv.fileName}
               className="hidden items-center gap-1.5 rounded-full bg-foreground px-3.5 py-2 text-xs font-semibold text-background transition-colors hover:bg-spot hover:text-foreground sm:inline-flex"
             >
               <ArrowDownToLine className="h-3.5 w-3.5" aria-hidden="true" />
@@ -264,7 +265,8 @@ const Header = () => {
             <button
               ref={toggleRef}
               type="button"
-              className="inline-flex h-9 items-center gap-2 rounded-full border border-foreground/15 px-3 text-xs font-semibold md:hidden"
+              className="press inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-full border border-foreground/15 px-3 text-xs font-semibold md:hidden"
+              aria-label={open ? t("site.nav.close") : t("site.nav.menu")}
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((v) => !v)}
@@ -273,7 +275,10 @@ const Header = () => {
                 <span className={`absolute left-0 top-0 h-px w-4 bg-current transition-transform ${open ? "translate-y-[5px] rotate-45" : ""}`} />
                 <span className={`absolute bottom-0 left-0 h-px w-4 bg-current transition-transform ${open ? "-translate-y-[4px] -rotate-45" : ""}`} />
               </span>
-              {open ? t("site.nav.close") : t("site.nav.menu")}
+              {/* the word is dropped on the narrowest phones to keep the bar on one line */}
+              <span className="hidden min-[360px]:inline" aria-hidden="true">
+                {open ? t("site.nav.close") : t("site.nav.menu")}
+              </span>
             </button>
           </div>
         </div>
@@ -288,7 +293,7 @@ const Header = () => {
         aria-label={t("site.nav.primary")}
         data-open={open}
         aria-hidden={!open}
-        className="menu-sheet fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-background px-4 pb-10 pt-6 sm:px-6 md:hidden"
+        className="menu-sheet fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto overscroll-contain bg-background px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-6 sm:px-6 md:hidden"
       >
         <p className="slug menu-item mb-4" style={{ ["--i" as string]: 0 }}>
           {t("site.work.contents")}
@@ -305,8 +310,8 @@ const Header = () => {
         </ul>
         <div className="menu-item mt-8 flex flex-col gap-3" style={{ ["--i" as string]: SECTIONS.length + 1 }}>
           <a
-            href={PROFILE.cvUrl}
-            download={PROFILE.cvFileName}
+            href={cv.url}
+            download={cv.fileName}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background"
           >
             <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />

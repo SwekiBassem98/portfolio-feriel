@@ -79,7 +79,7 @@
     "downloadCV": "Download CV",
     "legal": "Legal",
     "allRightsReserved": "All rights reserved.",
-    "portfolioYearRange": "2022 — 2025",
+    "portfolioYearRange": "2022 — 2026",
     "languages": "Arabic, French, English",
     "availabilityLabel": "Availability",
     "availabilityValue": "Immediate",
@@ -492,7 +492,7 @@
       "primary": "Main navigation"
     },
     "hero": {
-      "kicker": "Portfolio · 2022 — 2025",
+      "kicker": "Portfolio · 2022 — 2026",
       "role": "Graphic designer",
       "disciplines": "Brand · Print · Social media",
       "statementA": "I turn ideas into visuals that are",
@@ -514,7 +514,7 @@
     },
     "work": {
       "label": "Selected work",
-      "title": "Six projects, two disciplines.",
+      "title": "Seven projects, two disciplines.",
       "intro": "Commercial work across social media and print — each one built on the client's own brand language.",
       "contents": "Contents",
       "all": "All",

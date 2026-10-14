@@ -366,6 +366,70 @@ export const articles: Article[] = [
     deliverablesCount: "Suite de supports de 29 pages",
     tags: ["brochure corporate", "design print", "identité de marque", "branding industriel"],
   },
+  {
+    id: "007",
+    title: "Calotex",
+    subtitle: "Brochure d'entreprise",
+    category: "Industriel",
+    date: "31 Août 2026",
+    readTime: "5 min",
+    image: "/images/projects/calotex/calotex-thumbnail.png",
+    gallery: [
+      "/images/projects/calotex/1.png",
+      "/images/projects/calotex/2.png",
+      "/images/projects/calotex/3.png",
+      "/images/projects/calotex/4.png",
+      "/images/projects/calotex/5.png",
+      "/images/projects/calotex/6.png",
+      "/images/projects/calotex/7.png",
+      "/images/projects/calotex/8.png",
+      "/images/projects/calotex/9.png"
+    ],
+    gallerySections: [
+      {
+        title: "Couvertures",
+        images: ["/images/projects/calotex/1.png", "/images/projects/calotex/2.png"],
+      },
+      {
+        title: "Pages intérieures",
+        images: [
+          "/images/projects/calotex/3.png",
+          "/images/projects/calotex/4.png",
+          "/images/projects/calotex/5.png",
+          "/images/projects/calotex/6.png",
+          "/images/projects/calotex/7.png",
+          "/images/projects/calotex/8.png",
+          "/images/projects/calotex/9.png",
+        ],
+      },
+    ],
+    author: {
+      name: "Feriel Bouzid",
+      avatar: "",
+      bio: "Graphiste",
+    },
+    content: {
+      introduction: "Une brochure d'entreprise au format paysage conçue pour Calotex, fabricant tunisien de solutions de chauffage flexible (\u00ab\u00a0Masters in flexible heating\u00a0\u00bb) qui produit des chauffe-ballons, des jaquettes chauffantes et des produits thermiques sur mesure pour l'industrie et les laboratoires.",
+      sections: [
+        {
+          heading: "Concept & stratégie",
+          content: "La brochure est construite autour d'une question simple, \u00ab\u00a0What does Calotex do?\u00a0\u00bb, à laquelle elle répond comme une visite guidée de l'entreprise : l'usine et sa zone de fabrication, le travail fait main sur des textiles techniques haute température, l'assemblage et le contrôle qualité des chauffe-ballons, l'équipe, la capacité de production et les normes qui garantissent chaque produit (système de management de la qualité DIN EN ISO 9001, certification des produits ATEX et UL).",
+        },
+        {
+          heading: "Exécution visuelle",
+          content: "Une identité rouge vif marquée par un motif discret d'ondes concentriques évoquant la chaleur qui rayonne, une typographie blanche sans empattement et des marges généreuses. Les doubles pages alternent des collages photo pleine page pris dans les ateliers et des aplats rouges porteurs de texte : ce sont les personnes, les gestes et les produits qui racontent l'histoire \u2014 dans le même langage rouge et blanc, rigoureux, que les supports Winkler.",
+        },
+        {
+          heading: "Livrables & impact",
+          content: "Une brochure paysage prête à imprimer \u2014 couverture, quatrième de couverture et pages intérieures thématiques (l'usine, le savoir-faire, l'assemblage et le contrôle qualité, l'équipe, la capacité de production, les certifications) \u2014 présentée à travers une série de mockups photoréalistes et utilisée pour présenter l'entreprise à ses clients industriels et laboratoires.",
+        },
+      ],
+      conclusion: "Elle donne à un fabricant technique une voix chaleureuse et humaine : le savoir-faire, les équipes et les exigences derrière chaque produit chauffant, racontés dans un système éditorial cohérent.",
+    },
+    keySkills: ["Brochure d'entreprise", "Mise en page éditoriale", "Narration par la photo", "Production print"],
+    deliverablesCount: "Brochure d'entreprise paysage",
+    tags: ["brochure d'entreprise", "chauffage industriel", "design print", "mise en page éditoriale"],
+  },
 ];
 
 export function getArticleById(id: string): Article | undefined {

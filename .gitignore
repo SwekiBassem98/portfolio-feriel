@@ -26,3 +26,4 @@ dist-ssr
 # Local design scrapes (may embed signed URLs / credentials)
 figma_dump.html
 figma_embed.html
+scripts/cv/cv-*.html
