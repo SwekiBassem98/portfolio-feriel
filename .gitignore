@@ -27,3 +27,4 @@ dist-ssr
 figma_dump.html
 figma_embed.html
 scripts/cv/cv-*.html
+scripts/cv/titles.json

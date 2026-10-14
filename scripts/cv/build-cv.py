@@ -17,7 +17,7 @@ data = {
   "lang":"fr","title":"Graphiste – Identité visuelle, Print & Réseaux sociaux",
   "contact":["Nabeul, Tunisie","+216 23 331 239","ferielbouzzid@gmail.com"],
   "h":{"profile":"Profil","keys":"Compétences clés","exp":"Expérience professionnelle","edu":"Formation","tools":"Logiciels","soft":"Qualités","lang":"Langues"},
-  "profile":"Graphiste polyvalente avec 3 ans d’expérience dans la conception d’identités visuelles, de supports imprimés et de contenus pour les réseaux sociaux. Je maîtrise la chaîne graphique de la conception à la préparation des fichiers pour l’impression, avec une attention particulière à la cohérence de marque, à la mise en page et à la retouche photo. J’aime transformer les idées en visuels cohérents et percutants. Disponible immédiatement, sur site, en hybride ou à distance.",
+  "profile":"Graphiste polyvalente avec 4 ans d’expérience dans la conception d’identités visuelles, de supports imprimés et de contenus pour les réseaux sociaux. Je maîtrise la chaîne graphique de la conception à la préparation des fichiers pour l’impression, avec une attention particulière à la cohérence de marque, à la mise en page et à la retouche photo. J’aime transformer les idées en visuels cohérents et percutants. Disponible immédiatement, sur site, en hybride ou à distance.",
   "keys":["Identité visuelle et branding","Mise en page print : brochures, catalogues, flyers, affiches, bannières","Création de contenus pour les réseaux sociaux","Retouche photo et photographie produit","Préparation des fichiers pour l’impression"],
   "exp":[
    {"role":"Graphiste","org":"Calotex SARL","place":"Nabeul, Tunisie","dates":"Août 2024 – Présent","bullets":[
@@ -45,7 +45,7 @@ data = {
   "lang":"en","title":"Graphic Designer – Brand Identity, Print & Social Media",
   "contact":["Nabeul, Tunisia","+216 23 331 239","ferielbouzzid@gmail.com"],
   "h":{"profile":"Profile","keys":"Core Skills","exp":"Professional Experience","edu":"Education","tools":"Software","soft":"Soft Skills","lang":"Languages"},
-  "profile":"Versatile graphic designer with 3 years of experience creating visual identities, print materials and social media content. Skilled across the full design workflow, from concept to print-ready files, with close attention to brand consistency, layout and photo retouching. I enjoy turning ideas into coherent, impactful visuals. Available immediately for on-site, hybrid or remote work.",
+  "profile":"Versatile graphic designer with 4 years of experience creating visual identities, print materials and social media content. Skilled across the full design workflow, from concept to print-ready files, with close attention to brand consistency, layout and photo retouching. I enjoy turning ideas into coherent, impactful visuals. Available immediately for on-site, hybrid or remote work.",
   "keys":["Brand identity and branding","Print layout: brochures, catalogues, flyers, posters, banners","Social media content creation","Photo retouching and product photography","Print-ready file preparation (prepress)"],
   "exp":[
    {"role":"Graphic Designer","org":"Calotex SARL","place":"Nabeul, Tunisia","dates":"Aug 2024 – Present","bullets":[
