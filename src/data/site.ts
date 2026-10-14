@@ -4,8 +4,11 @@ import { imageSizes } from "./imageSizes";
 export const PROFILE = {
   name: "Feriel Bouzid",
   email: "ferielbouzzid@gmail.com",
-  cvUrl: "/images/projects/CV Feriel Bouzid (1).pdf",
-  cvFileName: "Feriel-Bouzid-CV.pdf",
+  /** ATS-friendly CVs (single column, real text, no photo), one per site language. */
+  cv: {
+    en: { url: "/cv/Feriel-Bouzid-CV-EN.pdf", fileName: "Feriel-Bouzid-CV-EN.pdf" },
+    fr: { url: "/cv/Feriel-Bouzid-CV-FR.pdf", fileName: "Feriel-Bouzid-CV-FR.pdf" },
+  },
   /**
    * Public profile links. Leave a value empty to hide it — the site never
    * shows a placeholder link. Add the real URLs here when available.
@@ -16,6 +19,10 @@ export const PROFILE = {
     instagram: "",
   },
 } as const;
+
+export type CvLanguage = keyof typeof PROFILE.cv;
+/** The CV matching the current site language (falls back to English). */
+export const cvFor = (language: string) => PROFILE.cv[(language === "fr" ? "fr" : "en") as CvLanguage];
 
 export type Discipline = "social" | "print";
 
@@ -95,6 +102,17 @@ export const projectMeta: Record<string, ProjectMeta> = {
       "/images/projects/winkler/0.png",
       "/images/projects/winkler/25.png",
       "/images/projects/winkler/22.png",
+    ],
+  },
+  "007": {
+    accent: "#FE0000",
+    onAccent: "#FFFFFF",
+    discipline: "print",
+    year: "2026",
+    samples: [
+      "/images/projects/calotex/3.png",
+      "/images/projects/calotex/6.png",
+      "/images/projects/calotex/8.png",
     ],
   },
 };

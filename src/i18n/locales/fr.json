@@ -79,7 +79,7 @@
     "downloadCV": "Télécharger le CV",
     "legal": "Mentions légales",
     "allRightsReserved": "Tous droits réservés.",
-    "portfolioYearRange": "2022 — 2025",
+    "portfolioYearRange": "2022 — 2026",
     "languages": "Arabe, Français, Anglais",
     "availabilityLabel": "Disponibilité",
     "availabilityValue": "Immédiate",
@@ -492,7 +492,7 @@
       "primary": "Navigation principale"
     },
     "hero": {
-      "kicker": "Portfolio · 2022 — 2025",
+      "kicker": "Portfolio · 2022 — 2026",
       "role": "Graphiste",
       "disciplines": "Identité · Print · Réseaux sociaux",
       "statementA": "Je transforme les idées en visuels",
@@ -514,7 +514,7 @@
     },
     "work": {
       "label": "Projets choisis",
-      "title": "Six projets, deux disciplines.",
+      "title": "Sept projets, deux disciplines.",
       "intro": "Des projets commerciaux entre réseaux sociaux et print — chacun construit sur le langage de marque du client.",
       "contents": "Sommaire",
       "all": "Tous",

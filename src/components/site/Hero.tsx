@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { ArrowDownRight, ArrowDownToLine, ArrowUpRight, Shuffle } from "lucide-react";
 import type { Article } from "@/data/articles.en";
-import { PROFILE, coverSrcSet, getProjectMeta } from "@/data/site";
+import { PROFILE, cvFor, coverSrcSet, getProjectMeta } from "@/data/site";
 import { hasFinePointer, useMagnetic, useReducedMotion } from "@/lib/motion";
 import MaskText from "./MaskText";
 import RegisterText from "./RegisterText";
@@ -210,6 +211,8 @@ const ProofStack = ({ projects }: { projects: Article[] }) => {
 /* ------------------------------------------------------------------ */
 const Hero = ({ projects }: { projects: Article[] }) => {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+  const cv = cvFor(language);
   const mode = useIntroMode();
   const primaryRef = useMagnetic<HTMLAnchorElement>();
   const cvRef = useMagnetic<HTMLAnchorElement>(0.18, 6);
@@ -297,8 +300,8 @@ const Hero = ({ projects }: { projects: Article[] }) => {
             </a>
             <a
               ref={cvRef}
-              href={PROFILE.cvUrl}
-              download={PROFILE.cvFileName}
+              href={cv.url}
+              download={cv.fileName}
               className="press intro-item group inline-flex items-center gap-2 rounded-full border border-foreground/25 px-6 py-3.5 text-sm font-semibold hover:border-foreground"
               style={at(860, 1)}
             >

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { ArrowDownToLine, ArrowUp, ArrowUpRight, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
-import { PROFILE } from "@/data/site";
+import { PROFILE, cvFor } from "@/data/site";
 import { RegMark } from "@/components/Header";
 import Reveal from "./Reveal";
 import MaskText from "./MaskText";
@@ -31,6 +32,8 @@ const useProofMode = () => {
 
 const Contact = () => {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+  const cv = cvFor(language);
   const [copied, setCopied] = useState(false);
   const [proof, setProof] = useProofMode();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -100,8 +103,8 @@ const Contact = () => {
                 {copied ? t("site.contact.copied") : t("site.contact.copy")}
               </button>
               <a
-                href={PROFILE.cvUrl}
-                download={PROFILE.cvFileName}
+                href={cv.url}
+                download={cv.fileName}
                 className="press inline-flex items-center gap-2 rounded-full bg-spot px-5 py-3 text-sm font-semibold text-[#141312] transition-transform hover:-translate-y-0.5"
               >
                 <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />

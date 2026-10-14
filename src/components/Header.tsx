@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Moon, Sun, ArrowDownToLine } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { PROFILE } from "@/data/site";
+import { PROFILE, cvFor } from "@/data/site";
 
 const SECTIONS = ["work", "about", "experience", "skills", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
@@ -45,6 +45,7 @@ const useActiveSection = (enabled: boolean) => {
 const Header = () => {
   const { t } = useTranslation();
   const { language, toggleLanguage } = useLanguage();
+  const cv = cvFor(language);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
@@ -240,8 +241,8 @@ const Header = () => {
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             <a
-              href={PROFILE.cvUrl}
-              download={PROFILE.cvFileName}
+              href={cv.url}
+              download={cv.fileName}
               className="hidden items-center gap-1.5 rounded-full bg-foreground px-3.5 py-2 text-xs font-semibold text-background transition-colors hover:bg-spot hover:text-foreground sm:inline-flex"
             >
               <ArrowDownToLine className="h-3.5 w-3.5" aria-hidden="true" />
@@ -309,8 +310,8 @@ const Header = () => {
         </ul>
         <div className="menu-item mt-8 flex flex-col gap-3" style={{ ["--i" as string]: SECTIONS.length + 1 }}>
           <a
-            href={PROFILE.cvUrl}
-            download={PROFILE.cvFileName}
+            href={cv.url}
+            download={cv.fileName}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background"
           >
             <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />

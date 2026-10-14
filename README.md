@@ -66,9 +66,13 @@ pip install pillow
 python3 scripts/image-variants.py
 ```
 
+## CV
+
+The downloadable CVs live in `public/cv/` (`Feriel-Bouzid-CV-FR.pdf`, `Feriel-Bouzid-CV-EN.pdf`). The site links the one that matches the selected language. Both are ATS-friendly: one column, real text, no photo. To update them, edit `scripts/cv/build-cv.py` and follow the instructions at the top of that file.
+
 ## Content
 
 - Projects (EN / FR): `src/data/articles.en.ts`, `src/data/articles.fr.ts`
 - Brand colour, discipline, year and home-page samples per project: `src/data/site.ts`
-- Contact details, CV path and social links: `PROFILE` in `src/data/site.ts`. A social link appears only when its URL is filled in.
+- Contact details, CV paths and social links: `PROFILE` in `src/data/site.ts`. A social link appears only when its URL is filled in.
 - Interface copy: `src/i18n/locales/en.json`, `fr.json` (keys under `site.*`)

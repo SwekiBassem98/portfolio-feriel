@@ -10,7 +10,7 @@ import TransitionLink from "@/components/site/TransitionLink";
 import CursorLabel from "@/components/site/CursorLabel";
 import { getArticleById, getArticles } from "@/data/articles";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { PROFILE, coverSrcSet, fullSrc, fullSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet } from "@/data/site";
+import { PROFILE, cvFor, coverSrcSet, fullSrc, fullSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet } from "@/data/site";
 
 /* ------------------------------------------------------------------ */
 /* Lightbox                                                            */
@@ -137,6 +137,7 @@ const Lightbox = ({ images, index, dir, title, onClose, onIndex }: LightboxProps
 const Article = () => {
   const { id } = useParams<{ id: string }>();
   const { language } = useLanguage();
+  const cv = cvFor(language);
   const { t } = useTranslation();
   const [section, setSection] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -456,8 +457,8 @@ const Article = () => {
             </div>
             <div className="flex flex-wrap gap-3">
               <a
-                href={PROFILE.cvUrl}
-                download={PROFILE.cvFileName}
+                href={cv.url}
+                download={cv.fileName}
                 className="inline-flex items-center gap-2 rounded-full bg-spot px-5 py-3 text-sm font-semibold text-[#141312]"
               >
                 <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />

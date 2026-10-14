@@ -511,6 +511,70 @@ export const articles: Article[] = [
     deliverablesCount: "29-Page Collateral Suite",
     tags: ["corporate brochure", "print design", "brand identity", "industrial branding"],
   },
+  {
+    id: "007",
+    title: "Calotex",
+    subtitle: "Company Brochure",
+    category: "Industrial",
+    date: "Aug 31, 2026",
+    readTime: "5 min",
+    image: "/images/projects/calotex/calotex-thumbnail.png",
+    gallery: [
+      "/images/projects/calotex/1.png",
+      "/images/projects/calotex/2.png",
+      "/images/projects/calotex/3.png",
+      "/images/projects/calotex/4.png",
+      "/images/projects/calotex/5.png",
+      "/images/projects/calotex/6.png",
+      "/images/projects/calotex/7.png",
+      "/images/projects/calotex/8.png",
+      "/images/projects/calotex/9.png"
+    ],
+    gallerySections: [
+      {
+        title: "Covers",
+        images: ["/images/projects/calotex/1.png", "/images/projects/calotex/2.png"],
+      },
+      {
+        title: "Inside Spreads",
+        images: [
+          "/images/projects/calotex/3.png",
+          "/images/projects/calotex/4.png",
+          "/images/projects/calotex/5.png",
+          "/images/projects/calotex/6.png",
+          "/images/projects/calotex/7.png",
+          "/images/projects/calotex/8.png",
+          "/images/projects/calotex/9.png",
+        ],
+      },
+    ],
+    author: {
+      name: "Feriel Bouzid",
+      avatar: "",
+      bio: "Graphic designer",
+    },
+    content: {
+      introduction: "A landscape company brochure designed for Calotex, a Tunisian manufacturer of flexible heating solutions (\u201cMasters in flexible heating\u201d) that produces heating mantles, heating jackets and custom thermal products for industrial and laboratory use.",
+      sections: [
+        {
+          heading: "Concept & Strategy",
+          content: "Built the brochure around one simple question, \u201cWhat does Calotex do?\u201d, and answered it as a guided tour of the company: the factory and its manufacturing zone, the hand-crafted work on high-temperature technical textiles, assembly and quality control of the heating mantles, the team behind them, production capacity, and the quality standards that back every product (DIN EN ISO 9001 quality management, ATEX and UL product certification).",
+        },
+        {
+          heading: "Visual Execution",
+          content: "A bold signal-red identity with a subtle concentric ripple motif evoking radiating heat, clean white sans-serif typography and generous margins. Spreads alternate full-bleed photo collages from the production floor with solid red text panels, so the people, the hands and the products carry the story \u2014 the same disciplined red-and-white language as the Winkler collateral.",
+        },
+        {
+          heading: "Deliverables & Impact",
+          content: "A print-ready landscape brochure \u2014 cover, back cover and themed inside spreads (The Factory, craftsmanship, assembly and quality control, team, production capacity, certifications) \u2014 presented through a series of photorealistic mockups and used to introduce the company to industrial and laboratory clients.",
+        },
+      ],
+      conclusion: "Gives a technical manufacturer a warm, human voice: the craft, the people and the standards behind every heating product, told through one consistent editorial system.",
+    },
+    keySkills: ["Corporate Brochure Design", "Editorial Layout", "Photo-led Storytelling", "Print Production"],
+    deliverablesCount: "Landscape Company Brochure",
+    tags: ["company brochure", "industrial heating", "print design", "editorial layout"],
+  },
 ];
 
 export function getArticleById(id: string): Article | undefined {
