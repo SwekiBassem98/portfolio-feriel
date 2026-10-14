@@ -166,7 +166,7 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
 
   return (
     <article aria-labelledby={`p-${project.id}`} className="grid gap-8 border-t border-foreground/15 py-14 sm:py-20 lg:grid-cols-12 lg:gap-12">
-      {/* Visuals: colour plate, then the image settles, then crop marks */}
+      {/* Visuals: colour plate, then the image settles */}
       <Reveal variant="stage" className={`lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
         <TransitionLink
           to={`/article/${project.id}`}
@@ -176,7 +176,7 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
           aria-hidden="true"
           data-cursor={t("site.work.open")}
         >
-          <div className="crop crop-hover m-[22px] sm:m-6">
+          <div className="m-[22px] sm:m-6">
             <div className="plate bg-muted" style={vars({ "--plate": meta.accent })} data-vt-cover={project.id}>
               <div className="sd-parallax">
                 <div className="transition-transform duration-700 ease-proof group-hover:scale-[1.035]">
