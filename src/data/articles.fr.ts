@@ -470,22 +470,22 @@ export const articles: Article[] = [
       bio: "Graphiste",
     },
     content: {
-      introduction: "Une brochure d'entreprise de 57 pages au format paysage, « What does Calotex do? », et un flyer de recrutement A5 conçus pour CALOTEX Sarl, fabricant de chauffages flexibles pour l'industrie fondé en 2014 à Nabeul, en Tunisie : 3 usines, 8 000 m² de surface et 131 employés.",
+      introduction: "Une brochure d'entreprise et un flyer de recrutement conçus pour CALOTEX, fabricant de chauffages industriels flexibles fondé en 2014 à Nabeul, en Tunisie.",
       sections: [
         {
           heading: "Concept & stratégie",
-          content: "La brochure répond à une question simple, « What does Calotex do? », sous la forme d'une visite guidée de l'entreprise, service par service : l'administration, la direction technique, les bureaux techniques jaquettes chauffantes, ATEX, flexibles chauffants et éléments silicone, la gestion des commandes, l'usine, les produits de laboratoire, le patronage, la qualité, la sécurité et l'environnement, et la logistique. Elle s'ouvre sur les chiffres clés et les normes qui garantissent chaque produit (certifications ISO 9001, UL, ATEX et EN 45545, audits TÜV Süd) et se termine sur les 10 ans de l'entreprise, célébrés en 2024.",
+          content: "La brochure de 57 pages est pensée comme une visite guidée de l'entreprise, « What does Calotex do? », avec un chapitre par service, des bureaux techniques à l'atelier, la qualité et la logistique.",
         },
         {
           heading: "Exécution visuelle",
-          content: "Une identité rouge vif marquée par un motif discret d'ondes concentriques évoquant la chaleur qui rayonne, une typographie blanche sans empattement et des marges généreuses. Les doubles pages alternent des collages photo pleine page pris dans les ateliers et des aplats rouges porteurs de texte : ce sont les personnes, les gestes et les produits qui racontent l'histoire — dans le même langage rouge et blanc, rigoureux, que les supports Winkler. Le flyer de recrutement reprend le même rouge et une photo de l'atelier de couture, avec une hiérarchie claire en arabe (l'appel à des couturiers expérimentés, le numéro de téléphone et l'adresse) posée dans des étiquettes blanches arrondies, lisibles d'un coup d'œil sur un présentoir.",
+          content: "De larges aplats rouge Calotex associés à des collages photo pleine page pris dans les ateliers : les équipes et leur savoir-faire portent le récit, avec une hiérarchie claire en arabe sur le flyer de recrutement.",
         },
         {
           heading: "Livrables & impact",
-          content: "Une brochure paysage de 57 pages prête à imprimer (couverture, chiffres clés, sommaire et un chapitre par service, des bureaux techniques à la logistique) présentée à travers des mockups photoréalistes, ainsi qu'un flyer de recrutement A5 imprimé pour présentoirs. Les deux fichiers d'impression sont disponibles ci-dessous.",
+          content: "Une brochure d'entreprise paysage de 57 pages et un flyer de recrutement A5 pour présentoirs, livrés prêts à imprimer.",
         },
       ],
-      conclusion: "Elle donne à un fabricant technique une voix chaleureuse et humaine : le savoir-faire, les équipes et les exigences derrière chaque produit chauffant, racontés dans un système éditorial cohérent.",
+      conclusion: "Donne à un fabricant technique une voix chaleureuse et humaine, à travers un système éditorial rouge et blanc cohérent.",
     },
     keySkills: ["Brochure d'entreprise", "Mise en page éditoriale", "Narration par la photo", "Production print", "Typographie arabe"],
     deliverablesCount: "Brochure 57 pages + flyer A5",

@@ -615,22 +615,22 @@ export const articles: Article[] = [
       bio: "Graphic designer",
     },
     content: {
-      introduction: "A 57-page landscape company brochure, “What does Calotex do?”, and an A5 recruitment flyer designed for CALOTEX Sarl, a manufacturer of flexible heaters for industrial applications founded in 2014 in Nabeul, Tunisia, with 3 factories, 8,000 m² of floor space and 131 employees.",
+      introduction: "A company brochure and recruitment flyer created for CALOTEX, a manufacturer of flexible industrial heaters founded in 2014 in Nabeul, Tunisia.",
       sections: [
         {
           heading: "Concept & Strategy",
-          content: "The brochure answers one simple question, “What does Calotex do?”, as a guided tour of the company, department by department: administration, the technical director, the technical offices for heating jackets, ATEX, heated hoses and silicone heaters, order management, the factory, laboratory products, pattern making, quality, safety and environment, and logistics. It opens with the facts and figures and the standards behind every product (ISO 9001, UL, ATEX and EN 45545 certification, audited by TÜV Süd) and closes on the company’s 10th anniversary in 2024.",
+          content: "Structured the 57-page brochure as a guided tour of the company, “What does Calotex do?”, with one chapter per department, from the technical offices to the factory floor, quality and logistics.",
         },
         {
           heading: "Visual Execution",
-          content: "A bold signal-red identity with a subtle concentric ripple motif evoking radiating heat, clean white sans-serif typography and generous margins. Spreads alternate full-bleed photo collages from the production floor with solid red text panels, so the people, the hands and the products carry the story — the same disciplined red-and-white language as the Winkler collateral. The recruitment flyer carries the same red and a photo of the sewing workshop, with a clear Arabic hierarchy (the call for experienced sewing workers, the phone number and the address) set in white rounded labels that read at a glance on a display stand.",
+          content: "Bold Calotex red panels paired with full-bleed photo collages from the production floor, letting the people and their craft carry the story, with a clear Arabic hierarchy on the recruitment flyer.",
         },
         {
           heading: "Deliverables & Impact",
-          content: "A print-ready 57-page landscape brochure (cover, facts and figures, contents and one chapter per department, from the technical offices to logistics) presented through photorealistic mockups, plus an A5 recruitment flyer printed for display stands. Both print files are available below.",
+          content: "A 57-page landscape company brochure and an A5 recruitment flyer for display stands, both delivered print-ready.",
         },
       ],
-      conclusion: "Gives a technical manufacturer a warm, human voice: the craft, the people and the standards behind every heating product, told through one consistent editorial system.",
+      conclusion: "Gives a technical manufacturer a warm, human voice through one consistent red-and-white editorial system.",
     },
     keySkills: ["Corporate Brochure Design", "Editorial Layout", "Photo-led Storytelling", "Print Production", "Arabic Typography"],
     deliverablesCount: "57-Page Brochure + A5 Flyer",
