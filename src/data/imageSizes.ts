@@ -2,6 +2,8 @@
 // used to reserve space (no layout shift) and to keep true aspect ratios in galleries.
 export const imageSizes: Record<string, [number, number]> = {
   "/images/projects/calotex/1.png": [2500, 1875],
+  "/images/projects/calotex/10.png": [2500, 1875],
+  "/images/projects/calotex/11.png": [2500, 1875],
   "/images/projects/calotex/2.png": [3000, 2250],
   "/images/projects/calotex/3.png": [3000, 2250],
   "/images/projects/calotex/4.png": [3000, 2250],

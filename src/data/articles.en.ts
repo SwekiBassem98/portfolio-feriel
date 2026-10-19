@@ -12,6 +12,12 @@ export interface Article {
     images: string[];
   }[];
   pdfUrl?: string;
+  /** Print files shown under the gallery, as delivered (PDF). */
+  documents?: {
+    title: string;
+    meta: string;
+    url: string;
+  }[];
   author: {
     name: string;
     avatar: string;
@@ -484,6 +490,43 @@ export const articles: Article[] = [
         ],
       },
     ],
+    documents: [
+      {
+        title: "PILZ® Laboratory & Industry Heating Mantles",
+        meta: "Product catalogue · 48 pages · 2.7 MB",
+        url: "/images/projects/winkler/docs/heating-mantles-catalogue.pdf",
+      },
+      {
+        title: "Silicone Heating Elements",
+        meta: "Bifold · 2 pages · 0.3 MB",
+        url: "/images/projects/winkler/docs/silicone-heating-bifold.pdf",
+      },
+      {
+        title: "Flexible Heating Solutions for Industrial Applications",
+        meta: "Trifold brochure · 2 pages · 0.3 MB",
+        url: "/images/projects/winkler/docs/company-brochure.pdf",
+      },
+      {
+        title: "Heating Jackets for Sub-Fabs",
+        meta: "Flyer · 2 pages · 0.3 MB",
+        url: "/images/projects/winkler/docs/heating-jackets-flyer.pdf",
+      },
+      {
+        title: "Temperature Controller",
+        meta: "Poster · 1 page · 0.2 MB",
+        url: "/images/projects/winkler/docs/temperature-controller-poster.pdf",
+      },
+      {
+        title: "Flexible Heating Solutions for Semicon Applications",
+        meta: "Roll-up banner · 1 page · 3 MB",
+        url: "/images/projects/winkler/docs/semicon-roll-up.pdf",
+      },
+      {
+        title: "Silicone Heating Elements",
+        meta: "Product catalogue · 28 pages · 2.3 MB",
+        url: "/images/projects/winkler/docs/silicone-heating-catalogue.pdf",
+      },
+    ],
     author: {
       name: "David Kim",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80",
@@ -502,19 +545,19 @@ export const articles: Article[] = [
         },
         {
           heading: "Deliverables & Impact",
-          content: "Comprehensive collateral system: 2 product catalogs (29 pages), bifold brochures, exhibition roll-ups, flyers, QR-enabled business cards, and branded packaging tape.",
+          content: "Comprehensive collateral system: two product catalogues (48 pages on PILZ® laboratory and industry heating mantles, 28 pages on silicone heating elements), a silicone heating bifold, a trifold company brochure, a heating jackets flyer for semiconductor sub-fabs, a temperature controller poster, a semicon exhibition roll-up, QR-enabled business cards and branded packaging tape. The print files are available below.",
         },
       ],
       conclusion: "Demonstrates master-level control of large-scale, multi-format technical print design for an international engineering leader.",
     },
     keySkills: ["Global Print Architecture", "Bilingual Technical Catalogs", "Trade Show Booth Collateral", "German Engineering Standards"],
-    deliverablesCount: "29-Page Collateral Suite",
+    deliverablesCount: "76 Catalogue Pages + Collateral",
     tags: ["corporate brochure", "print design", "brand identity", "industrial branding"],
   },
   {
     id: "007",
     title: "Calotex",
-    subtitle: "Company Brochure",
+    subtitle: "Brochure & Recruitment Flyer",
     category: "Industrial",
     date: "Aug 31, 2026",
     readTime: "5 min",
@@ -528,7 +571,9 @@ export const articles: Article[] = [
       "/images/projects/calotex/6.png",
       "/images/projects/calotex/7.png",
       "/images/projects/calotex/8.png",
-      "/images/projects/calotex/9.png"
+      "/images/projects/calotex/9.png",
+      "/images/projects/calotex/10.png",
+      "/images/projects/calotex/11.png",
     ],
     gallerySections: [
       {
@@ -547,6 +592,22 @@ export const articles: Article[] = [
           "/images/projects/calotex/9.png",
         ],
       },
+      {
+        title: "Recruitment Flyer",
+        images: ["/images/projects/calotex/10.png", "/images/projects/calotex/11.png"],
+      },
+    ],
+    documents: [
+      {
+        title: "What does Calotex do?",
+        meta: "Company brochure · 57 pages · 18 MB",
+        url: "/images/projects/calotex/docs/what-does-calotex-do.pdf",
+      },
+      {
+        title: "Recruitment flyer",
+        meta: "A5 flyer in Arabic · 1 page · 0.1 MB",
+        url: "/images/projects/calotex/docs/recruitment-flyer-a5.pdf",
+      },
     ],
     author: {
       name: "Feriel Bouzid",
@@ -554,26 +615,26 @@ export const articles: Article[] = [
       bio: "Graphic designer",
     },
     content: {
-      introduction: "A landscape company brochure designed for Calotex, a Tunisian manufacturer of flexible heating solutions (\u201cMasters in flexible heating\u201d) that produces heating mantles, heating jackets and custom thermal products for industrial and laboratory use.",
+      introduction: "A 57-page landscape company brochure, “What does Calotex do?”, and an A5 recruitment flyer designed for CALOTEX Sarl, a manufacturer of flexible heaters for industrial applications founded in 2014 in Nabeul, Tunisia, with 3 factories, 8,000 m² of floor space and 131 employees.",
       sections: [
         {
           heading: "Concept & Strategy",
-          content: "Built the brochure around one simple question, \u201cWhat does Calotex do?\u201d, and answered it as a guided tour of the company: the factory and its manufacturing zone, the hand-crafted work on high-temperature technical textiles, assembly and quality control of the heating mantles, the team behind them, production capacity, and the quality standards that back every product (DIN EN ISO 9001 quality management, ATEX and UL product certification).",
+          content: "The brochure answers one simple question, “What does Calotex do?”, as a guided tour of the company, department by department: administration, the technical director, the technical offices for heating jackets, ATEX, heated hoses and silicone heaters, order management, the factory, laboratory products, pattern making, quality, safety and environment, and logistics. It opens with the facts and figures and the standards behind every product (ISO 9001, UL, ATEX and EN 45545 certification, audited by TÜV Süd) and closes on the company’s 10th anniversary in 2024.",
         },
         {
           heading: "Visual Execution",
-          content: "A bold signal-red identity with a subtle concentric ripple motif evoking radiating heat, clean white sans-serif typography and generous margins. Spreads alternate full-bleed photo collages from the production floor with solid red text panels, so the people, the hands and the products carry the story \u2014 the same disciplined red-and-white language as the Winkler collateral.",
+          content: "A bold signal-red identity with a subtle concentric ripple motif evoking radiating heat, clean white sans-serif typography and generous margins. Spreads alternate full-bleed photo collages from the production floor with solid red text panels, so the people, the hands and the products carry the story — the same disciplined red-and-white language as the Winkler collateral. The recruitment flyer carries the same red and a photo of the sewing workshop, with a clear Arabic hierarchy (the call for experienced sewing workers, the phone number and the address) set in white rounded labels that read at a glance on a display stand.",
         },
         {
           heading: "Deliverables & Impact",
-          content: "A print-ready landscape brochure \u2014 cover, back cover and themed inside spreads (The Factory, craftsmanship, assembly and quality control, team, production capacity, certifications) \u2014 presented through a series of photorealistic mockups and used to introduce the company to industrial and laboratory clients.",
+          content: "A print-ready 57-page landscape brochure (cover, facts and figures, contents and one chapter per department, from the technical offices to logistics) presented through photorealistic mockups, plus an A5 recruitment flyer printed for display stands. Both print files are available below.",
         },
       ],
       conclusion: "Gives a technical manufacturer a warm, human voice: the craft, the people and the standards behind every heating product, told through one consistent editorial system.",
     },
-    keySkills: ["Corporate Brochure Design", "Editorial Layout", "Photo-led Storytelling", "Print Production"],
-    deliverablesCount: "Landscape Company Brochure",
-    tags: ["company brochure", "industrial heating", "print design", "editorial layout"],
+    keySkills: ["Corporate Brochure Design", "Editorial Layout", "Photo-led Storytelling", "Print Production", "Arabic Typography"],
+    deliverablesCount: "57-Page Brochure + A5 Flyer",
+    tags: ["company brochure", "industrial heating", "print design", "editorial layout", "recruitment flyer"],
   },
 ];
 
