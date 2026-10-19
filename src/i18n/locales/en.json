@@ -594,6 +594,7 @@
       "pieces": "{{count}} pieces",
       "file": "Full project file",
       "fileDesc": "The complete print-ready document, as delivered.",
+      "files": "Project files ({{count}})",
       "openPdf": "Open PDF",
       "talk": "Have a similar project?",
       "emailFeriel": "Email Feriel",

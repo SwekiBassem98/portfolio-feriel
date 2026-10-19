@@ -594,6 +594,7 @@
       "pieces": "{{count}} visuels",
       "file": "Fichier complet du projet",
       "fileDesc": "Le document final prêt à imprimer, tel que livré.",
+      "files": "Fichiers du projet ({{count}})",
       "openPdf": "Ouvrir le PDF",
       "talk": "Un projet similaire ?",
       "emailFeriel": "Écrire à Feriel",

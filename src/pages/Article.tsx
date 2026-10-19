@@ -174,6 +174,10 @@ const Article = () => {
   const prevP = all[(pos - 1 + all.length) % all.length];
   const discipline = meta.discipline === "print" ? t("site.work.disciplinePrint") : t("site.work.disciplineSocial");
   const isPrint = meta.discipline === "print";
+  // Print files: a list of PDFs, or the single legacy `pdfUrl` (CBSS)
+  const documents =
+    article.documents ??
+    (article.pdfUrl ? [{ title: t("site.project.file"), meta: t("site.project.fileDesc"), url: article.pdfUrl }] : []);
 
   const copyLink = async () => {
     try {
@@ -361,24 +365,34 @@ const Article = () => {
               })}
             </ul>
 
-            {article.pdfUrl && (
-              <div className="mt-10 flex flex-col gap-4 border border-foreground p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-                <div className="flex items-center gap-4">
-                  <FileText className="h-6 w-6 shrink-0" aria-hidden="true" />
-                  <div>
-                    <p className="font-semibold">{t("site.project.file")}</p>
-                    <p className="text-sm text-muted-foreground">{t("site.project.fileDesc")}</p>
-                  </div>
-                </div>
-                <a
-                  href={article.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-colors hover:bg-spot hover:text-[#141312]"
-                >
-                  {t("site.project.openPdf")}
-                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </a>
+            {documents.length > 0 && (
+              <div className="mt-10">
+                {documents.length > 1 && (
+                  <h3 className="slug mb-4">{t("site.project.files", { count: documents.length })}</h3>
+                )}
+                <ul className="divide-y divide-foreground/15 border border-foreground">
+                  {documents.map((doc) => (
+                    <li key={doc.url} className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                      <div className="flex items-center gap-4">
+                        <FileText className="h-6 w-6 shrink-0" aria-hidden="true" />
+                        <div>
+                          <p className="font-semibold">{doc.title}</p>
+                          <p className="text-sm text-muted-foreground">{doc.meta}</p>
+                        </div>
+                      </div>
+                      <a
+                        href={doc.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${t("site.project.openPdf")}: ${doc.title}`}
+                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-colors hover:bg-spot hover:text-[#141312]"
+                      >
+                        {t("site.project.openPdf")}
+                        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 

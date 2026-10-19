@@ -12,6 +12,12 @@ export interface Article {
     images: string[];
   }[];
   pdfUrl?: string;
+  /** Print files shown under the gallery, as delivered (PDF). */
+  documents?: {
+    title: string;
+    meta: string;
+    url: string;
+  }[];
   author: {
     name: string;
     avatar: string;
@@ -339,6 +345,43 @@ export const articles: Article[] = [
         ],
       },
     ],
+    documents: [
+      {
+        title: "Chauffe-ballons PILZ® pour laboratoire et industrie",
+        meta: "Catalogue produits · 48 pages · 2,7 Mo",
+        url: "/images/projects/winkler/docs/heating-mantles-catalogue.pdf",
+      },
+      {
+        title: "Éléments chauffants en silicone",
+        meta: "Dépliant bifold · 2 pages · 0,3 Mo",
+        url: "/images/projects/winkler/docs/silicone-heating-bifold.pdf",
+      },
+      {
+        title: "Solutions de chauffage flexibles pour l'industrie",
+        meta: "Dépliant trois volets · 2 pages · 0,3 Mo",
+        url: "/images/projects/winkler/docs/company-brochure.pdf",
+      },
+      {
+        title: "Jaquettes chauffantes pour sub-fabs",
+        meta: "Flyer · 2 pages · 0,3 Mo",
+        url: "/images/projects/winkler/docs/heating-jackets-flyer.pdf",
+      },
+      {
+        title: "Régulateur de température",
+        meta: "Affiche · 1 page · 0,2 Mo",
+        url: "/images/projects/winkler/docs/temperature-controller-poster.pdf",
+      },
+      {
+        title: "Solutions de chauffage flexibles pour les semi-conducteurs",
+        meta: "Roll-up · 1 page · 3 Mo",
+        url: "/images/projects/winkler/docs/semicon-roll-up.pdf",
+      },
+      {
+        title: "Éléments chauffants en silicone",
+        meta: "Catalogue produits · 28 pages · 2,3 Mo",
+        url: "/images/projects/winkler/docs/silicone-heating-catalogue.pdf",
+      },
+    ],
     author: {
       name: "David Kim",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80",
@@ -357,19 +400,19 @@ export const articles: Article[] = [
         },
         {
           heading: "Livrables & Impact",
-          content: "Système complet de 2 catalogues produits (29 pages), dépliants bifold, roll-ups d'exposition, flyers, cartes de visite avec QR code et ruban d'emballage logoté.",
+          content: "Système complet : deux catalogues produits (48 pages sur les chauffe-ballons PILZ® pour laboratoire et industrie, 28 pages sur les éléments chauffants en silicone), un dépliant bifold silicone, un dépliant trois volets de présentation, un flyer sur les jaquettes chauffantes pour les sub-fabs des semi-conducteurs, une affiche pour le régulateur de température, un roll-up d'exposition, des cartes de visite avec QR code et un ruban d'emballage logoté. Les fichiers d'impression sont disponibles ci-dessous.",
         },
       ],
       conclusion: "Démontre une maîtrise avancée de la conception print technique à grande échelle pour un acteur industriel international de premier plan.",
     },
     keySkills: ["Architecture print globale", "Catalogues techniques bilingues", "Supports de salon", "Normes d'ingénierie allemandes"],
-    deliverablesCount: "Suite de supports de 29 pages",
+    deliverablesCount: "76 pages de catalogues + supports",
     tags: ["brochure corporate", "design print", "identité de marque", "branding industriel"],
   },
   {
     id: "007",
     title: "Calotex",
-    subtitle: "Brochure d'entreprise",
+    subtitle: "Brochure & flyer de recrutement",
     category: "Industriel",
     date: "31 Août 2026",
     readTime: "5 min",
@@ -383,7 +426,9 @@ export const articles: Article[] = [
       "/images/projects/calotex/6.png",
       "/images/projects/calotex/7.png",
       "/images/projects/calotex/8.png",
-      "/images/projects/calotex/9.png"
+      "/images/projects/calotex/9.png",
+      "/images/projects/calotex/10.png",
+      "/images/projects/calotex/11.png",
     ],
     gallerySections: [
       {
@@ -402,6 +447,22 @@ export const articles: Article[] = [
           "/images/projects/calotex/9.png",
         ],
       },
+      {
+        title: "Flyer de recrutement",
+        images: ["/images/projects/calotex/10.png", "/images/projects/calotex/11.png"],
+      },
+    ],
+    documents: [
+      {
+        title: "What does Calotex do?",
+        meta: "Brochure d'entreprise · 57 pages · 18 Mo",
+        url: "/images/projects/calotex/docs/what-does-calotex-do.pdf",
+      },
+      {
+        title: "Flyer de recrutement",
+        meta: "Flyer A5 en arabe · 1 page · 0,1 Mo",
+        url: "/images/projects/calotex/docs/recruitment-flyer-a5.pdf",
+      },
     ],
     author: {
       name: "Feriel Bouzid",
@@ -409,26 +470,26 @@ export const articles: Article[] = [
       bio: "Graphiste",
     },
     content: {
-      introduction: "Une brochure d'entreprise au format paysage conçue pour Calotex, fabricant tunisien de solutions de chauffage flexible (\u00ab\u00a0Masters in flexible heating\u00a0\u00bb) qui produit des chauffe-ballons, des jaquettes chauffantes et des produits thermiques sur mesure pour l'industrie et les laboratoires.",
+      introduction: "Une brochure d'entreprise de 57 pages au format paysage, « What does Calotex do? », et un flyer de recrutement A5 conçus pour CALOTEX Sarl, fabricant de chauffages flexibles pour l'industrie fondé en 2014 à Nabeul, en Tunisie : 3 usines, 8 000 m² de surface et 131 employés.",
       sections: [
         {
           heading: "Concept & stratégie",
-          content: "La brochure est construite autour d'une question simple, \u00ab\u00a0What does Calotex do?\u00a0\u00bb, à laquelle elle répond comme une visite guidée de l'entreprise : l'usine et sa zone de fabrication, le travail fait main sur des textiles techniques haute température, l'assemblage et le contrôle qualité des chauffe-ballons, l'équipe, la capacité de production et les normes qui garantissent chaque produit (système de management de la qualité DIN EN ISO 9001, certification des produits ATEX et UL).",
+          content: "La brochure répond à une question simple, « What does Calotex do? », sous la forme d'une visite guidée de l'entreprise, service par service : l'administration, la direction technique, les bureaux techniques jaquettes chauffantes, ATEX, flexibles chauffants et éléments silicone, la gestion des commandes, l'usine, les produits de laboratoire, le patronage, la qualité, la sécurité et l'environnement, et la logistique. Elle s'ouvre sur les chiffres clés et les normes qui garantissent chaque produit (certifications ISO 9001, UL, ATEX et EN 45545, audits TÜV Süd) et se termine sur les 10 ans de l'entreprise, célébrés en 2024.",
         },
         {
           heading: "Exécution visuelle",
-          content: "Une identité rouge vif marquée par un motif discret d'ondes concentriques évoquant la chaleur qui rayonne, une typographie blanche sans empattement et des marges généreuses. Les doubles pages alternent des collages photo pleine page pris dans les ateliers et des aplats rouges porteurs de texte : ce sont les personnes, les gestes et les produits qui racontent l'histoire \u2014 dans le même langage rouge et blanc, rigoureux, que les supports Winkler.",
+          content: "Une identité rouge vif marquée par un motif discret d'ondes concentriques évoquant la chaleur qui rayonne, une typographie blanche sans empattement et des marges généreuses. Les doubles pages alternent des collages photo pleine page pris dans les ateliers et des aplats rouges porteurs de texte : ce sont les personnes, les gestes et les produits qui racontent l'histoire — dans le même langage rouge et blanc, rigoureux, que les supports Winkler. Le flyer de recrutement reprend le même rouge et une photo de l'atelier de couture, avec une hiérarchie claire en arabe (l'appel à des couturiers expérimentés, le numéro de téléphone et l'adresse) posée dans des étiquettes blanches arrondies, lisibles d'un coup d'œil sur un présentoir.",
         },
         {
           heading: "Livrables & impact",
-          content: "Une brochure paysage prête à imprimer \u2014 couverture, quatrième de couverture et pages intérieures thématiques (l'usine, le savoir-faire, l'assemblage et le contrôle qualité, l'équipe, la capacité de production, les certifications) \u2014 présentée à travers une série de mockups photoréalistes et utilisée pour présenter l'entreprise à ses clients industriels et laboratoires.",
+          content: "Une brochure paysage de 57 pages prête à imprimer (couverture, chiffres clés, sommaire et un chapitre par service, des bureaux techniques à la logistique) présentée à travers des mockups photoréalistes, ainsi qu'un flyer de recrutement A5 imprimé pour présentoirs. Les deux fichiers d'impression sont disponibles ci-dessous.",
         },
       ],
       conclusion: "Elle donne à un fabricant technique une voix chaleureuse et humaine : le savoir-faire, les équipes et les exigences derrière chaque produit chauffant, racontés dans un système éditorial cohérent.",
     },
-    keySkills: ["Brochure d'entreprise", "Mise en page éditoriale", "Narration par la photo", "Production print"],
-    deliverablesCount: "Brochure d'entreprise paysage",
-    tags: ["brochure d'entreprise", "chauffage industriel", "design print", "mise en page éditoriale"],
+    keySkills: ["Brochure d'entreprise", "Mise en page éditoriale", "Narration par la photo", "Production print", "Typographie arabe"],
+    deliverablesCount: "Brochure 57 pages + flyer A5",
+    tags: ["brochure d'entreprise", "chauffage industriel", "design print", "mise en page éditoriale", "flyer de recrutement"],
   },
 ];
 
