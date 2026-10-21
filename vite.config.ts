@@ -17,7 +17,8 @@ const siteUrl = (() => {
   return raw.replace(/\/$/, "");
 })();
 
-const PROJECT_IDS = ["001", "002", "003", "004", "005", "006", "007"];
+// Same order as PROJECT_ORDER in src/data/site.ts
+const PROJECT_IDS = ["003", "004", "001", "002", "005", "006", "007"];
 
 /** Injects the site URL into index.html and emits robots.txt + sitemap.xml. */
 const seo = (): Plugin => ({

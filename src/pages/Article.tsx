@@ -10,7 +10,7 @@ import TransitionLink from "@/components/site/TransitionLink";
 import CursorLabel from "@/components/site/CursorLabel";
 import { getArticleById, getArticles } from "@/data/articles";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { PROFILE, cvFor, coverSrcSet, fullSrc, fullSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet } from "@/data/site";
+import { PROFILE, cvFor, coverSrcSet, folioOf, fullSrc, fullSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet } from "@/data/site";
 
 /* ------------------------------------------------------------------ */
 /* Lightbox                                                            */
@@ -211,7 +211,7 @@ const Article = () => {
               {t("site.project.back")}
             </TransitionLink>
             <span className="slug intro-item" style={{ ["--intro-base" as string]: "300ms" }}>
-              {t("site.project.folio")} {article.id} / {String(all.length).padStart(3, "0")}
+              {t("site.project.folio")} 0{folioOf(article.id)} / {String(all.length).padStart(3, "0")}
             </span>
           </div>
 
