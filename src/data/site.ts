@@ -35,6 +35,11 @@ export interface ProjectMeta {
   year: string;
   /** Three real pieces from the gallery, shown on the home page spread. */
   samples: [string, string, string];
+  /**
+   * Shape of every gallery cell (CSS aspect-ratio of the previews). A fixed
+   * shape keeps the grid identical on every screen, browser and connection.
+   */
+  galleryRatio: string;
 }
 
 export const projectMeta: Record<string, ProjectMeta> = {
@@ -43,6 +48,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#141312",
     discipline: "social",
     year: "2024",
+    galleryRatio: "455 / 480",
     samples: [
       "/images/projects/moderna/12.png",
       "/images/projects/moderna/9.png",
@@ -54,6 +60,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#141312",
     discipline: "social",
     year: "2024",
+    galleryRatio: "1 / 1",
     samples: [
       "/images/projects/ilmercato/2.jpg",
       "/images/projects/ilmercato/6.png",
@@ -65,6 +72,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#FFFFFF",
     discipline: "print",
     year: "2024",
+    galleryRatio: "4 / 3",
     samples: [
       "/images/projects/cbss/1.png",
       "/images/projects/cbss/4.png",
@@ -76,6 +84,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#FFFFFF",
     discipline: "social",
     year: "2025",
+    galleryRatio: "1 / 1",
     samples: [
       "/images/projects/curvita/13.jpg",
       "/images/projects/curvita/45.jpg",
@@ -87,6 +96,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#141312",
     discipline: "social",
     year: "2025",
+    galleryRatio: "1 / 1",
     samples: [
       "/images/projects/uniconfort/1.jpg",
       "/images/projects/uniconfort/7.png",
@@ -98,6 +108,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#FFFFFF",
     discipline: "print",
     year: "2025",
+    galleryRatio: "4 / 3",
     samples: [
       "/images/projects/winkler/0.png",
       "/images/projects/winkler/25.png",
@@ -109,6 +120,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     onAccent: "#FFFFFF",
     discipline: "print",
     year: "2026",
+    galleryRatio: "4 / 3",
     samples: [
       "/images/projects/calotex/3.png",
       "/images/projects/calotex/6.png",
@@ -123,6 +135,7 @@ export const fallbackMeta: ProjectMeta = {
   discipline: "social",
   year: "",
   samples: ["", "", ""],
+  galleryRatio: "1 / 1",
 };
 
 export const getProjectMeta = (id: string): ProjectMeta => projectMeta[id] ?? fallbackMeta;
