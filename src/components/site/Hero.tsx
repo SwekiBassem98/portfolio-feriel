@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { ArrowDownRight, ArrowDownToLine, ArrowUpRight, Shuffle } from "lucide-react";
 import type { Article } from "@/data/articles.en";
-import { PROFILE, cvFor, coverSrcSet, getProjectMeta } from "@/data/site";
+import { PROFILE, cvFor, coverSrcSet, folioOf, getProjectMeta } from "@/data/site";
 import { hasFinePointer, useMagnetic, useReducedMotion } from "@/lib/motion";
 import MaskText from "./MaskText";
 import RegisterText from "./RegisterText";
@@ -177,7 +177,7 @@ const ProofStack = ({ projects }: { projects: Article[] }) => {
       <div className="intro-item mt-3 flex items-center justify-between gap-3 border-t border-foreground/15 pt-3" style={at(1050)}>
         <TransitionLink to={`/article/${front.id}`} coverId={front.id} className="group -my-2 flex min-h-11 min-w-0 items-center gap-3 py-2">
           <span className="h-3 w-3 shrink-0 rounded-full transition-colors duration-500" style={{ background: frontMeta.accent }} aria-hidden="true" />
-          <span className="font-mono text-[11px] text-muted-foreground">{front.id}</span>
+          <span className="font-mono text-[11px] text-muted-foreground">0{folioOf(front.id)}</span>
           <span key={front.id} className="mw mw-swap shrink-0">
             <span className="text-sm font-semibold">
               {front.title}

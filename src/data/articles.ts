@@ -1,10 +1,17 @@
 import { articles as enArticles, getArticleById as getEnArticleById, getRelatedArticles as getEnRelatedArticles } from "./articles.en";
+import { PROJECT_ORDER } from "./site";
 import { articles as frArticles, getArticleById as getFrArticleById, getRelatedArticles as getFrRelatedArticles } from "./articles.fr";
 
 export { enArticles as articles };
 
+const byDisplayOrder = <T extends { id: string }>(list: T[]) =>
+  [...list].sort((a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id));
+const orderedEn = byDisplayOrder(enArticles);
+const orderedFr = byDisplayOrder(frArticles);
+
+/** Projects in display order (see PROJECT_ORDER). */
 export const getArticles = (lang: string) => {
-  return lang === "fr" ? frArticles : enArticles;
+  return lang === "fr" ? orderedFr : orderedEn;
 };
 
 export const getArticleById = (id: string, lang?: string) => {

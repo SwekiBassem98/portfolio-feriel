@@ -47,7 +47,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     accent: "#FFD400",
     onAccent: "#141312",
     discipline: "social",
-    year: "2024",
+    year: "2023–2024",
     galleryRatio: "455 / 480",
     samples: [
       "/images/projects/moderna/12.png",
@@ -71,7 +71,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     accent: "#E10102",
     onAccent: "#FFFFFF",
     discipline: "print",
-    year: "2024",
+    year: "2022",
     galleryRatio: "4 / 3",
     samples: [
       "/images/projects/cbss/1.png",
@@ -83,7 +83,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     accent: "#E8435E",
     onAccent: "#FFFFFF",
     discipline: "social",
-    year: "2025",
+    year: "2023–2024",
     galleryRatio: "1 / 1",
     samples: [
       "/images/projects/curvita/13.jpg",
@@ -95,7 +95,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     accent: "#FCD800",
     onAccent: "#141312",
     discipline: "social",
-    year: "2025",
+    year: "2024",
     galleryRatio: "1 / 1",
     samples: [
       "/images/projects/uniconfort/1.jpg",
@@ -107,7 +107,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     accent: "#E2202C",
     onAccent: "#FFFFFF",
     discipline: "print",
-    year: "2025",
+    year: "2024–2026",
     galleryRatio: "4 / 3",
     samples: [
       "/images/projects/winkler/0.png",
@@ -119,7 +119,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     accent: "#FE0000",
     onAccent: "#FFFFFF",
     discipline: "print",
-    year: "2026",
+    year: "2025–2026",
     galleryRatio: "4 / 3",
     samples: [
       "/images/projects/calotex/3.png",
@@ -137,6 +137,15 @@ export const fallbackMeta: ProjectMeta = {
   samples: ["", "", ""],
   galleryRatio: "1 / 1",
 };
+
+/**
+ * Display order of the projects (home page, contents, folio numbers and
+ * next/previous links). Project ids stay fixed because they are the URLs.
+ */
+export const PROJECT_ORDER = ["003", "004", "001", "002", "005", "006", "007"];
+
+/** Two-digit folio number of a project in the display order ("01"). */
+export const folioOf = (id: string) => String(PROJECT_ORDER.indexOf(id) + 1).padStart(2, "0");
 
 export const getProjectMeta = (id: string): ProjectMeta => projectMeta[id] ?? fallbackMeta;
 

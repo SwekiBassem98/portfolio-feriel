@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { useTranslation } from "react-i18next";
 import { ArrowUpRight } from "lucide-react";
 import type { Article } from "@/data/articles.en";
-import { coverSrcSet, getProjectMeta, sizeOf, thumb, thumbSrcSet, type Discipline } from "@/data/site";
+import { coverSrcSet, folioOf, getProjectMeta, sizeOf, thumb, thumbSrcSet, type Discipline } from "@/data/site";
 import { hasFinePointer, prefersReducedMotion, useMagnetic } from "@/lib/motion";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
@@ -98,7 +98,7 @@ const Contents = ({ projects }: { projects: Article[] }) => {
                 className="group relative grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 py-4 sm:grid-cols-[3rem_minmax(0,1.3fr)_minmax(0,1fr)_5rem_auto] sm:py-5"
               >
                 <span className="row-fill absolute inset-0 -z-0 opacity-[0.12]" style={{ background: meta.accent }} aria-hidden="true" />
-                <span className="relative font-mono text-xs text-muted-foreground">{p.id}</span>
+                <span className="relative font-mono text-xs text-muted-foreground">0{folioOf(p.id)}</span>
                 <span className="relative flex items-center gap-3 text-2xl font-semibold tracking-tight transition-transform duration-500 ease-proof group-hover:translate-x-2 sm:text-3xl">
                   <span
                     className="h-2.5 w-2.5 shrink-0 scale-0 rounded-full transition-transform duration-300 ease-proof group-hover:scale-100 group-focus-visible:scale-100"
@@ -162,7 +162,7 @@ const Spread = ({ project, index }: { project: Article; index: number }) => {
   const flip = index % 2 === 1;
   const isPrint = meta.discipline === "print";
   const ctaRef = useMagnetic<HTMLAnchorElement>(0.2, 6);
-  const folio = project.id.slice(1);
+  const folio = folioOf(project.id);
 
   return (
     <article aria-labelledby={`p-${project.id}`} className="grid gap-8 border-t border-foreground/15 py-14 sm:py-20 lg:grid-cols-12 lg:gap-12">
