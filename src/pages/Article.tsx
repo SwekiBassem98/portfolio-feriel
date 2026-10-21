@@ -330,11 +330,14 @@ const Article = () => {
               </div>
             )}
 
-            <ul className={`mt-8 gap-3 sm:gap-4 ${isPrint ? "columns-1 sm:columns-2" : "columns-2 md:columns-3"}`}>
+            {/* A real grid, filled row by row with cells of one fixed shape per
+                project: the arrangement no longer depends on window width,
+                display scaling or image load order. */}
+            <ul className={`mt-8 grid gap-3 sm:gap-4 ${isPrint ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-2 md:grid-cols-3"}`}>
               {images.map((src, i) => {
                 const [w, h] = sizeOf(src);
                 return (
-                  <Reveal as="li" key={`${section}-${src}`} delay={(i % 3) * 80} className="mb-3 break-inside-avoid sm:mb-4">
+                  <Reveal as="li" key={`${section}-${src}`} delay={(i % 3) * 80}>
                     <button
                       type="button"
                       onClick={() => {
@@ -343,6 +346,7 @@ const Article = () => {
                       }}
                       data-cursor={t("article.view")}
                       className="group relative block w-full overflow-hidden bg-muted"
+                      style={{ aspectRatio: meta.galleryRatio }}
                       aria-label={t("site.project.viewImage", { index: i + 1, title: article.title })}
                     >
                       <img
@@ -354,7 +358,7 @@ const Article = () => {
                         height={h}
                         loading="lazy"
                         decoding="async"
-                        className="block h-auto w-full transition-transform duration-700 ease-proof group-hover:scale-[1.025]"
+                        className="block h-full w-full object-contain transition-transform duration-700 ease-proof group-hover:scale-[1.025]"
                       />
                       <span className="absolute left-2 top-2 rounded-full bg-background/90 px-2 py-0.5 font-mono text-[10px] opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                         {String(i + 1).padStart(2, "0")}

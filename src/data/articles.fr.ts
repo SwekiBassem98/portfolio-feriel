@@ -84,7 +84,7 @@ export const articles: Article[] = [
     readTime: "6 min",
     image: "/images/projects/ilmercato/IlMercato-thumbnail.jpg",
     gallery: [
-      "/images/projects/ilmercato/1.jpg","/images/projects/ilmercato/2.jpg","/images/projects/ilmercato/3.png","/images/projects/ilmercato/4.png","/images/projects/ilmercato/5.jpg","/images/projects/ilmercato/6.png","/images/projects/ilmercato/7.png","/images/projects/ilmercato/8.png","/images/projects/ilmercato/9.png","/images/projects/ilmercato/10.png","/images/projects/ilmercato/11.jpg","/images/projects/ilmercato/12.jpg","/images/projects/ilmercato/13.jpg","/images/projects/ilmercato/14.jpg","/images/projects/ilmercato/15.jpg"
+      "/images/projects/ilmercato/1.jpg","/images/projects/ilmercato/2.jpg","/images/projects/ilmercato/3.png","/images/projects/ilmercato/4.png","/images/projects/ilmercato/5.jpg","/images/projects/ilmercato/6.png","/images/projects/ilmercato/7.png","/images/projects/ilmercato/8.png","/images/projects/ilmercato/9.png","/images/projects/ilmercato/10.png","/images/projects/ilmercato/11.jpg","/images/projects/ilmercato/12.jpg","/images/projects/ilmercato/13.jpg","/images/projects/ilmercato/14.jpg","/images/projects/ilmercato/15.jpg","/images/projects/ilmercato/16.jpg","/images/projects/ilmercato/17.jpg","/images/projects/ilmercato/18.jpg","/images/projects/ilmercato/19.jpg","/images/projects/ilmercato/20.jpg","/images/projects/ilmercato/21.jpg"
     ],
     author: {
       name: "Sofia Rodriguez",
@@ -110,7 +110,7 @@ export const articles: Article[] = [
       conclusion: "À travers ce projet, je démontre une sensibilité raffinée pour le branding alimentaire et lifestyle, adaptant le ton visuel produit par produit tout en maintenant une identité de marque unifiée. Mon rôle a consisté à structurer chaque publication pour mettre en valeur l'attrait sensoriel de la sélection gourmet d'Il Mercato.",
     },
     keySkills: ["Branding artisanal", "Direction du styling culinaire", "Harmonnie typo éditoriale", "Stratégie réseaux sociaux"],
-    deliverablesCount: "15 visuels gourmet",
+    deliverablesCount: "21 visuels gourmet",
     tags: ["photographie alimentaire", "branding gourmet", "épicerie fine", "design réseaux sociaux"],
   },
   {

@@ -120,6 +120,12 @@ export const articles: Article[] = [
       "/images/projects/ilmercato/13.jpg",
       "/images/projects/ilmercato/14.jpg",
       "/images/projects/ilmercato/15.jpg",
+      "/images/projects/ilmercato/16.jpg",
+      "/images/projects/ilmercato/17.jpg",
+      "/images/projects/ilmercato/18.jpg",
+      "/images/projects/ilmercato/19.jpg",
+      "/images/projects/ilmercato/20.jpg",
+      "/images/projects/ilmercato/21.jpg",
     ],
     author: {
       name: "Sofia Rodriguez",
@@ -139,13 +145,13 @@ export const articles: Article[] = [
         },
         {
           heading: "Deliverables & Impact",
-          content: "15 Instagram feed visuals highlighting gourmet specialties, packaging details, and seasonal greetings that elevated the store's digital reputation across Tunisia.",
+          content: "21 Instagram feed visuals highlighting gourmet specialties, packaging details, and seasonal greetings that elevated the store's digital reputation across Tunisia.",
         },
       ],
       conclusion: "Demonstrates sensitive food art direction, balancing artisanal warmth with clean commercial presentation to inspire gourmet desire.",
     },
     keySkills: ["Artisanal Branding", "Food Styling Direction", "Editorial Typographic Pairing", "Social Media Strategy"],
-    deliverablesCount: "15 Gourmet Assets",
+    deliverablesCount: "21 Gourmet Assets",
     tags: ["food photography", "gourmet branding", "épicerie fine", "social media design"],
   },
   {
